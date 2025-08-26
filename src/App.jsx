@@ -46,6 +46,7 @@ import React, { useState, useEffect } from "react";
 import Navbar from "./components/Header";
 import Home from "./components/Home";
 import TrackBus from "./components/Track";
+import SeatDetails from "./components/Seats";
 
 export default function App() {
   const [darkMode, setDarkMode] = useState(false);
@@ -68,6 +69,9 @@ export default function App() {
         </section>
         <section id="track">
           <TrackBus />
+        </section>
+        <section id="seats">
+          <SeatDetails />
         </section>
       </main>
     </div>
