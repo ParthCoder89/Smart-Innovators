@@ -105,7 +105,7 @@ export default function Track() {
             ))}
           </select>
           <div className="h-80" data-aos="zoom-out">
-            {userLocation && (
+            {userLocation ? (
               <MapContainer
                 center={[userLocation.lat, userLocation.lng]}
                 zoom={12}
@@ -116,29 +116,25 @@ export default function Track() {
                   <Popup>You are here 📍</Popup>
                 </Marker>
                 {selectedBus && (
-                  <Marker
-                    position={[selectedBus.lat, selectedBus.lng]}
-                    icon={busIcon}
-                  >
+                  <Marker position={[selectedBus.lat, selectedBus.lng]} icon={busIcon}>
                     <Popup>
                       {selectedBus.id} - {selectedBus.route}
                     </Popup>
                   </Marker>
                 )}
                 {selectedBus && showDistance && (
-                  <Routing
-                    userLocation={userLocation}
-                    busLocation={selectedBus}
-                  />
+                  <Routing userLocation={userLocation} busLocation={selectedBus} />
                 )}
               </MapContainer>
+            ) : (
+              <p className="text-center text-gray-500">Fetching your location...</p>
             )}
           </div>
+
           {selectedBus && (
             <button
               onClick={() => setShowDistance(true)}
               className="mt-4 bg-yellow-600 text-white px-4 py-2 mx-[30%] rounded-lg"
-              data-aos="zoom-out"
             >
               Distance From Me
             </button>
