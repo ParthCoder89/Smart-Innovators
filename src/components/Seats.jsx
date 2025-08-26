@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import SeatsJpg from "../assets/seats.jpg";
+import SeatsJpg from "../assets/Seats.jpg";
 import AOS from "aos";
 import "aos/dist/aos.css";
 
