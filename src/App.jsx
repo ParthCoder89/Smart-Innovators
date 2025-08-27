@@ -3,12 +3,13 @@ import Navbar from "./components/Header";
 import Home from "./components/Home";
 import TrackBus from "./components/Track";
 import SeatDetails from "./components/Seats";
-import AuthForm from "./components/Authform"; // 👈 import the auth form
+import AuthForm from "./components/Authform"; // import the auth form
+import AboutUs from "./components/AboutUs";
 
 export default function App() {
   const [darkMode, setDarkMode] = useState(false);
-  const [showAuth, setShowAuth] = useState(false); // 👈 auth modal toggle
-  const [user, setUser] = useState(null); // 👈 user state (email after login/signup)
+  const [showAuth, setShowAuth] = useState(false); // auth modal toggle
+  const [user, setUser] = useState(null); // user state (email after login/signup)
 
   // Dark mode toggle effect
   useEffect(() => {
@@ -30,9 +31,7 @@ export default function App() {
       />
 
       {/* AuthForm overlay, opens only when showAuth = true */}
-      {showAuth && (
-        <AuthForm setShowAuth={setShowAuth} setUser={setUser} />
-      )}
+      {showAuth && <AuthForm setShowAuth={setShowAuth} setUser={setUser} />}
 
       <main>
         <section id="home">
@@ -43,6 +42,9 @@ export default function App() {
         </section>
         <section id="seats">
           <SeatDetails />
+        </section>
+        <section id="about">
+          <AboutUs />
         </section>
       </main>
     </div>

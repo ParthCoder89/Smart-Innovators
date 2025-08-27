@@ -53,12 +53,21 @@ export default function SeatDetails() {
                         ))}
                     </select>
 
-                    <div className="mt-20">
+                    <div className="mt-10">
                         <img
                             src={SeatsJpg}
                             alt="Bus Seat Layout"
                             className="mx-auto w-72 rounded-2xl"
                         />
+                    </div>
+                    <div className="mt-16 text-center">
+                        <ul>
+                            <li>
+                                <a href="" className="py-4 px-6 bg-orange-500 rounded-lg text-white font-bold hover:bg-orange-400">
+                                    Book Your Seat
+                                </a>
+                            </li>
+                        </ul>
                     </div>
                 </div>
 
