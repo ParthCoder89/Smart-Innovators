@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
+import AOS from "aos";
+import "aos/dist/aos.css";
 import Member1 from "../assets/member1.jpg"
 import Member2 from "../assets/member2.jpg"
 import Member3 from "../assets/member3.jpg"
@@ -7,8 +9,11 @@ import Member5 from "../assets/member5.jpg"
 import Member6 from "../assets/member6.jpg"
 
 export default function AboutUs() {
+    useEffect(() => {
+        AOS.init({ duration: 1000, once: false });
+    }, []);
     return (
-        <div className="bg-gray-50 dark:bg-gray-900  px-6 pt-10">
+        <div className="bg-gray-50 dark:bg-gray-900  px-6 pt-10 " data-aos="zoom-out">
             {/* Heading */}
             <h1 className="text-4xl font-bold text-center mb-20 mt-14">
                 About Us <span role="img" aria-label="team">👥</span>
@@ -77,7 +82,7 @@ export default function AboutUs() {
                                 LinkedIn
                             </a>
                         </p>
-                        <p>Email: member@example.com</p>
+                        <p>Email : yashtech0.525@gmail.com</p>
                     </div>
 
                     {/* Right: Role */}
@@ -90,229 +95,229 @@ export default function AboutUs() {
 
             {/* Team Member 02 */}
 
-                {/* Member card */}
-                <div className="grid grid-cols-1 md:grid-cols-3 items-center gap-6 mb-10">
-                    {/* Left: Photo */}
-                    <div className="flex justify-center">
-                        <img
-                            src={Member2}
-                            alt="Team member"
-                            className="rounded-full w-32 h-32 object-cover"
-                        />
-                    </div>
-
-                    {/* Center: Name + social links */}
-                    <div className="text-center md:text-left">
-                        <h3 className="text-xl font-bold">Member Name</h3>
-                        <p>
-                            <a
-                                href="https://github.com/ParthCoder89"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="text-blue-500 hover:underline"
-                            >
-                                GitHub
-                            </a>{" "}
-                            |{" "}
-                            <a
-                                href=""
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="text-blue-500 hover:underline"
-                            >
-                                LinkedIn
-                            </a>
-                        </p>
-                        <p>Email: member@example.com</p>
-                    </div>
-
-                    {/* Right: Role */}
-                    <div className="text-center md:text-right mr-20">
-                        <p className="font-medium">Role in Project: Developer</p>
-                    </div>
+            {/* Member card */}
+            <div className="grid grid-cols-1 md:grid-cols-3 items-center gap-6 mb-10">
+                {/* Left: Photo */}
+                <div className="flex justify-center">
+                    <img
+                        src={Member2}
+                        alt="Team member"
+                        className="rounded-full w-32 h-32 object-cover"
+                    />
                 </div>
+
+                {/* Center: Name + social links */}
+                <div className="text-center md:text-left">
+                    <h3 className="text-xl font-bold">Parth Vaish</h3>
+                    <p>
+                        <a
+                            href="https://github.com/ParthCoder89"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-blue-500 hover:underline"
+                        >
+                            GitHub
+                        </a>{" "}
+                        |{" "}
+                        <a
+                            href="https://www.linkedin.com/in/parth-vaish-46b51533a?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-blue-500 hover:underline"
+                        >
+                            LinkedIn
+                        </a>
+                    </p>
+                    <p>Email : parthgupta5041@gmail.com</p>
+                </div>
+
+                {/* Right: Role */}
+                <div className="text-center md:text-right mr-20">
+                    <p className="font-medium">Role in Project: Developer</p>
+                </div>
+            </div>
 
 
             {/* Team Member 03 */}
-                {/* Member card */}
-                <div className="grid grid-cols-1 md:grid-cols-3 items-center gap-6 mb-10">
-                    {/* Left: Photo */}
-                    <div className="flex justify-center">
-                        <img
-                            src={Member3}
-                            alt="Team member"
-                            className="rounded-full w-32 h-32 object-cover"
-                        />
-                    </div>
-
-                    {/* Center: Name + social links */}
-                    <div className="text-center md:text-left">
-                        <h3 className="text-xl font-bold">Member Name</h3>
-                        <p>
-                            <a
-                                href="https://github.com/"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="text-blue-500 hover:underline"
-                            >
-                                GitHub
-                            </a>{" "}
-                            |{" "}
-                            <a
-                                href="https://linkedin.com/"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="text-blue-500 hover:underline"
-                            >
-                                LinkedIn
-                            </a>
-                        </p>
-                        <p>Email: member@example.com</p>
-                    </div>
-
-                    {/* Right: Role */}
-                    <div className="text-center md:text-right mr-20">
-                        <p className="font-medium">Role in Project: Developer</p>
-                    </div>
+            {/* Member card */}
+            <div className="grid grid-cols-1 md:grid-cols-3 items-center gap-6 mb-10">
+                {/* Left: Photo */}
+                <div className="flex justify-center">
+                    <img
+                        src={Member3}
+                        alt="Team member"
+                        className="rounded-full w-32 h-32 object-cover"
+                    />
                 </div>
+
+                {/* Center: Name + social links */}
+                <div className="text-center md:text-left">
+                    <h3 className="text-xl font-bold">Srashti Rastogi</h3>
+                    <p>
+                        <a
+                            href="https://github.com/SrashtiCoder19"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-blue-500 hover:underline"
+                        >
+                            GitHub
+                        </a>{" "}
+                        |{" "}
+                        <a
+                            href="https://www.linkedin.com/in/srashti-rastogi-701350308?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-blue-500 hover:underline"
+                        >
+                            LinkedIn
+                        </a>
+                    </p>
+                    <p>Email: vedkarastogi@gmail.com</p>
+                </div>
+
+                {/* Right: Role */}
+                <div className="text-center md:text-right mr-20">
+                    <p className="font-medium">Role in Project: Developer</p>
+                </div>
+            </div>
 
             {/* Team Member 04 */}
 
-                {/* Member card */}
-                <div className="grid grid-cols-1 md:grid-cols-3 items-center gap-6 mb-10">
-                    {/* Left: Photo */}
-                    <div className="flex justify-center">
-                        <img
-                            src={Member4}
-                            alt="Team member"
-                            className="rounded-full w-32 h-32 object-cover"
-                        />
-                    </div>
-
-                    {/* Center: Name + social links */}
-                    <div className="text-center md:text-left">
-                        <h3 className="text-xl font-bold">Member Name</h3>
-                        <p>
-                            <a
-                                href="https://github.com/"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="text-blue-500 hover:underline"
-                            >
-                                GitHub
-                            </a>{" "}
-                            |{" "}
-                            <a
-                                href="https://linkedin.com/"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="text-blue-500 hover:underline"
-                            >
-                                LinkedIn
-                            </a>
-                        </p>
-                        <p>Email: member@example.com</p>
-                    </div>
-
-                    {/* Right: Role */}
-                    <div className="text-center md:text-right mr-20">
-                        <p className="font-medium">Role in Project: Developer</p>
-                    </div>
+            {/* Member card */}
+            <div className="grid grid-cols-1 md:grid-cols-3 items-center gap-6 mb-10">
+                {/* Left: Photo */}
+                <div className="flex justify-center">
+                    <img
+                        src={Member4}
+                        alt="Team member"
+                        className="rounded-full w-32 h-32 object-cover"
+                    />
                 </div>
+
+                {/* Center: Name + social links */}
+                <div className="text-center md:text-left">
+                    <h3 className="text-xl font-bold">Manthan Yadav</h3>
+                    <p>
+                        <a
+                            href="https://github.com/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-blue-500 hover:underline"
+                        >
+                            GitHub
+                        </a>{" "}
+                        |{" "}
+                        <a
+                            href="https://linkedin.com/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-blue-500 hover:underline"
+                        >
+                            LinkedIn
+                        </a>
+                    </p>
+                    <p>Email: Manthany99@gmail.com</p>
+                </div>
+
+                {/* Right: Role */}
+                <div className="text-center md:text-right mr-20">
+                    <p className="font-medium">Role in Project: Developer</p>
+                </div>
+            </div>
 
 
             {/* Team Member 05 */}
 
-                {/* Member card */}
-                <div className="grid grid-cols-1 md:grid-cols-3 items-center gap-6 mb-10">
-                    {/* Left: Photo */}
-                    <div className="flex justify-center">
-                        <img
-                            src={Member5}
-                            alt="Team member"
-                            className="rounded-full w-32 h-32 object-cover"
-                        />
-                    </div>
-
-                    {/* Center: Name + social links */}
-                    <div className="text-center md:text-left">
-                        <h3 className="text-xl font-bold">Member Name</h3>
-                        <p>
-                            <a
-                                href="https://github.com/"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="text-blue-500 hover:underline"
-                            >
-                                GitHub
-                            </a>{" "}
-                            |{" "}
-                            <a
-                                href="https://linkedin.com/"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="text-blue-500 hover:underline"
-                            >
-                                LinkedIn
-                            </a>
-                        </p>
-                        <p>Email: member@example.com</p>
-                    </div>
-
-                    {/* Right: Role */}
-                    <div className="text-center md:text-right mr-20">
-                        <p className="font-medium">Role in Project: Developer</p>
-                    </div>
+            {/* Member card */}
+            <div className="grid grid-cols-1 md:grid-cols-3 items-center gap-6 mb-10">
+                {/* Left: Photo */}
+                <div className="flex justify-center">
+                    <img
+                        src={Member5}
+                        alt="Team member"
+                        className="rounded-full w-32 h-32 object-cover"
+                    />
                 </div>
 
-                {/* Repeat this block for each of the 6 members */}
+                {/* Center: Name + social links */}
+                <div className="text-center md:text-left">
+                    <h3 className="text-xl font-bold">Alok Verma</h3>
+                    <p>
+                        <a
+                            href="https://github.com/Alokzhan"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-blue-500 hover:underline"
+                        >
+                            GitHub
+                        </a>{" "}
+                        |{" "}
+                        <a
+                            href="https://www.linkedin.com/in/alok-verma-539833350?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-blue-500 hover:underline"
+                        >
+                            LinkedIn
+                        </a>
+                    </p>
+                    <p>Email: alokji814@gmail.com</p>
+                </div>
+
+                {/* Right: Role */}
+                <div className="text-center md:text-right mr-20">
+                    <p className="font-medium">Role in Project: Developer</p>
+                </div>
+            </div>
+
+            {/* Repeat this block for each of the 6 members */}
 
             {/* Team Member 06 */}
 
-                {/* Member card */}
-                <div className="grid grid-cols-1 md:grid-cols-3 items-center gap-6 mb-10">
-                    {/* Left: Photo */}
-                    <div className="flex justify-center">
-                        <img
-                            src={Member6}
-                            alt="Team member"
-                            className="rounded-full w-32 h-32 object-cover"
-                        />
-                    </div>
-
-                    {/* Center: Name + social links */}
-                    <div className="text-center md:text-left">
-                        <h3 className="text-xl font-bold">Member Name</h3>
-                        <p>
-                            <a
-                                href="https://github.com/"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="text-blue-500 hover:underline"
-                            >
-                                GitHub
-                            </a>{" "}
-                            |{" "}
-                            <a
-                                href="https://linkedin.com/"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="text-blue-500 hover:underline"
-                            >
-                                LinkedIn
-                            </a>
-                        </p>
-                        <p>Email: member@example.com</p>
-                    </div>
-
-                    {/* Right: Role */}
-                    <div className="text-center md:text-right mr-20">
-                        <p className="font-medium">Role in Project: Developer</p>
-                    </div>
+            {/* Member card */}
+            <div className="grid grid-cols-1 md:grid-cols-3 items-center gap-6 mb-10">
+                {/* Left: Photo */}
+                <div className="flex justify-center">
+                    <img
+                        src={Member6}
+                        alt="Team member"
+                        className="rounded-full w-32 h-32 object-cover"
+                    />
                 </div>
 
-                {/* Repeat this block for each of the 6 members */}
+                {/* Center: Name + social links */}
+                <div className="text-center md:text-left">
+                    <h3 className="text-xl font-bold">Shivam Kumar</h3>
+                    <p>
+                        <a
+                            href="https://github.com/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-blue-500 hover:underline"
+                        >
+                            GitHub
+                        </a>{" "}
+                        |{" "}
+                        <a
+                            href="https://linkedin.com/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-blue-500 hover:underline"
+                        >
+                            LinkedIn
+                        </a>
+                    </p>
+                    <p>Email: kumarshivam16338@gmail.com</p>
+                </div>
+
+                {/* Right: Role */}
+                <div className="text-center md:text-right mr-20">
+                    <p className="font-medium">Role in Project: Developer</p>
+                </div>
             </div>
+
+            {/* Repeat this block for each of the 6 members */}
+        </div>
 
 
     );
