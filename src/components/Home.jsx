@@ -1,7 +1,8 @@
 import React, { useEffect } from "react";
-import busImg from "../assets/google map 2.jpg"; 
+import busImg from "../assets/google map 2.jpg";
 import AOS from "aos";
 import "aos/dist/aos.css";
+import { motion } from "framer-motion";
 
 export default function Home() {
   useEffect(() => {
@@ -13,15 +14,23 @@ export default function Home() {
     <div
       className="min-h-screen flex flex-col justify-center items-center pt-20 px-6"
     >
-      <h1 className="text-5xl font-bold mb-12 mt-10 text-center" data-aos="zoom-out">
+      {/*data-aos="zoom-out"*/}
+      <motion.h1 className="text-5xl font-bold mb-12 mt-10 text-center"
+        initial={{ opacity: 0, y: -200 }}     // starting state
+        animate={{ opacity: 1, y: 0 }}       // final state
+        transition={{ duration: 1 }}
+      >
         Smart Transit System
-      </h1>
+      </motion.h1>
 
       <div className="grid md:grid-cols-2 gap-10 items-center mt-6">
         {/* Left */}
-        <div
+        <motion.div
           className="flex justify-center flex-col items-center pl-20"
-          data-aos="zoom-out"
+          initial={{ opacity: 0, x: -500 }}     // starting state
+          animate={{ opacity: 1, x: 0 }}       // final state
+          transition={{ duration: 1 }}
+        // data-aos="zoom-out"
         >
           <h2 className="text-4xl font-bold mb-4 text-center">
             Smart Bus Tracking & Seat Occupancy System
@@ -41,16 +50,21 @@ export default function Home() {
               </a>
             </li>
           </ul>
-        </div>
+        </motion.div>
 
         {/* Right */}
-        <div className="flex justify-center" data-aos="zoom-out">
+        <motion.div className="flex justify-center"
+          initial={{ opacity: 0, x: 500 }}     // starting state
+          animate={{ opacity: 1, x: 0 }}       // final state
+          transition={{ duration: 1 }}
+        //  data-aos="zoom-out"
+        >
           <img
             src={busImg}
             alt="Tracking"
             className="rounded-lg shadow-lg w-72"
           />
-        </div>
+        </motion.div>
       </div>
     </div>
   );

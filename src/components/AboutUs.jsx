@@ -82,12 +82,12 @@ export default function AboutUs() {
                                 LinkedIn
                             </a>
                         </p>
-                        <p>Email : yashtech0.525@gmail.com</p>
+                        <p>Email : yashtech0525@gmail.com</p>
                     </div>
 
                     {/* Right: Role */}
                     <div className="text-center md:text-right mr-20">
-                        <p className="font-medium">Role in Project: Developer</p>
+                        <p className="font-semibold text-start">Role in Project : Iot Developer</p>
                     </div>
                 </div>
             </div>
@@ -133,7 +133,7 @@ export default function AboutUs() {
 
                 {/* Right: Role */}
                 <div className="text-center md:text-right mr-20">
-                    <p className="font-medium">Role in Project: Developer</p>
+                    <p className="font-semibold text-start">Role in Project : Frontend Developer</p>
                 </div>
             </div>
 
@@ -177,7 +177,7 @@ export default function AboutUs() {
 
                 {/* Right: Role */}
                 <div className="text-center md:text-right mr-20">
-                    <p className="font-medium">Role in Project: Developer</p>
+                    <p className="font-semibold text-start">Role in Project : Frontend Developer and Model Maker</p>
                 </div>
             </div>
 
@@ -221,7 +221,7 @@ export default function AboutUs() {
 
                 {/* Right: Role */}
                 <div className="text-center md:text-right mr-20">
-                    <p className="font-medium">Role in Project: Developer</p>
+                    <p className="font-semibold text-start">Role in Project : Backend Developer</p>
                 </div>
             </div>
 
@@ -266,7 +266,7 @@ export default function AboutUs() {
 
                 {/* Right: Role */}
                 <div className="text-center md:text-right mr-20">
-                    <p className="font-medium">Role in Project: Developer</p>
+                    <p className="font-semibold text-start">Role in Project : DataBase Developer</p>
                 </div>
             </div>
 
@@ -312,7 +312,7 @@ export default function AboutUs() {
 
                 {/* Right: Role */}
                 <div className="text-center md:text-right mr-20">
-                    <p className="font-medium">Role in Project: Developer</p>
+                    <p className="font-semibold text-start">Role in Project : AI Developer and Adviser</p>
                 </div>
             </div>
 
