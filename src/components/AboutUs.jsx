@@ -10,19 +10,23 @@ import Member6 from "../assets/member6.jpg"
 
 export default function AboutUs() {
     useEffect(() => {
-        AOS.init({ duration: 1000, once: false });
+        AOS.init({
+            duration: 1000,
+            once: true, // animate only once
+        });
+        AOS.refresh(); // force refresh so visible elements animate on load
     }, []);
     return (
-        <div className="bg-gray-50 dark:bg-gray-900  px-6 pt-10 " data-aos="zoom-out">
+        <div className="bg-gray-50 dark:bg-gray-900  px-6 pt-10 ">
             {/* Heading */}
-            <h1 className="text-4xl font-bold text-center mb-20 mt-14">
+            <h1 className="text-4xl font-bold text-center mb-20 mt-14" data-aos="zoom-out">
                 About Us <span role="img" aria-label="team">👥</span>
             </h1>
 
             {/* Team Description */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
                 {/* Left div: Team name and description */}
-                <div style={{ border: "2px solid red", padding: "15px", borderRadius: "20px" }}>
+                <div style={{ border: "2px solid red", padding: "15px", borderRadius: "20px" }} data-aos="fade-right">
                     <h2 className="text-2xl font-semibold mb-4 text-center">Smart Innovators</h2>
                     <p className="text-gray-700 dark:text-gray-300 px-10">
                         {/* Team description text goes here */}
@@ -32,7 +36,7 @@ export default function AboutUs() {
                 </div>
 
                 {/* Right div: Placeholder for project details */}
-                <div style={{ border: "2px solid red", padding: "15px", borderRadius: "20px" }}>
+                <div style={{ border: "2px solid red", padding: "15px", borderRadius: "20px" }} data-aos="fade-left">
                     <h2 className="text-2xl font-semibold mb-4 text-center">Our Project</h2>
                     <p className="text-gray-700 dark:text-gray-300 px-10">
                         {/* Short project overview */}
@@ -46,7 +50,7 @@ export default function AboutUs() {
 
 
 
-            <div className="flex flex-col">
+            <div className="flex flex-col" data-aos="zoom-out">
 
                 {/* Team Member 01 */}
 
@@ -96,7 +100,7 @@ export default function AboutUs() {
             {/* Team Member 02 */}
 
             {/* Member card */}
-            <div className="grid grid-cols-1 md:grid-cols-3 items-center gap-6 mb-10">
+            <div className="grid grid-cols-1 md:grid-cols-3 items-center gap-6 mb-10" data-aos="zoom-out">
                 {/* Left: Photo */}
                 <div className="flex justify-center">
                     <img
@@ -140,7 +144,7 @@ export default function AboutUs() {
 
             {/* Team Member 03 */}
             {/* Member card */}
-            <div className="grid grid-cols-1 md:grid-cols-3 items-center gap-6 mb-10">
+            <div className="grid grid-cols-1 md:grid-cols-3 items-center gap-6 mb-10" data-aos="zoom-out">
                 {/* Left: Photo */}
                 <div className="flex justify-center">
                     <img
@@ -184,7 +188,7 @@ export default function AboutUs() {
             {/* Team Member 04 */}
 
             {/* Member card */}
-            <div className="grid grid-cols-1 md:grid-cols-3 items-center gap-6 mb-10">
+            <div className="grid grid-cols-1 md:grid-cols-3 items-center gap-6 mb-10" data-aos="zoom-out">
                 {/* Left: Photo */}
                 <div className="flex justify-center">
                     <img
@@ -229,7 +233,7 @@ export default function AboutUs() {
             {/* Team Member 05 */}
 
             {/* Member card */}
-            <div className="grid grid-cols-1 md:grid-cols-3 items-center gap-6 mb-10">
+            <div className="grid grid-cols-1 md:grid-cols-3 items-center gap-6 mb-10" data-aos="zoom-out">
                 {/* Left: Photo */}
                 <div className="flex justify-center">
                     <img
@@ -275,7 +279,7 @@ export default function AboutUs() {
             {/* Team Member 06 */}
 
             {/* Member card */}
-            <div className="grid grid-cols-1 md:grid-cols-3 items-center gap-6 mb-10">
+            <div className="grid grid-cols-1 md:grid-cols-3 items-center gap-6 mb-10" data-aos="zoom-out">
                 {/* Left: Photo */}
                 <div className="flex justify-center">
                     <img
