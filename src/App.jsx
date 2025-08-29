@@ -5,6 +5,7 @@ import TrackBus from "./components/Track";
 import SeatDetails from "./components/Seats";
 import AuthForm from "./components/Authform"; // import the auth form
 import AboutUs from "./components/AboutUs";
+import Contact from "./components/Contact";
 
 export default function App() {
   const [darkMode, setDarkMode] = useState(false);
@@ -45,6 +46,9 @@ export default function App() {
         </section>
         <section id="about">
           <AboutUs />
+        </section>
+        <section id="contact">
+          <Contact />
         </section>
       </main>
     </div>
