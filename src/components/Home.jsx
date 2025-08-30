@@ -21,7 +21,7 @@ export default function Home() {
         Smart Transit System
       </h1>
 
-      <div className="grid md:grid-cols-2 gap-10 items-center mt-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center mt-6">
         {/* Left */}
         <div
           className="flex justify-center flex-col items-center pl-20"
@@ -61,3 +61,5 @@ export default function Home() {
     </div>
   );
 }
+
+

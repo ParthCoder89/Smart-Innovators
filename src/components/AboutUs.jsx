@@ -137,7 +137,7 @@ export default function AboutUs() {
 
                 {/* Right: Role */}
                 <div className="text-center md:text-right mr-20">
-                    <p className="font-semibold text-start">Role in Project : Frontend Developer</p>
+                    <p className="font-semibold text-start">Role in Project : Project Manager & Frontend Developer</p>
                 </div>
             </div>
 
@@ -203,7 +203,7 @@ export default function AboutUs() {
                     <h3 className="text-xl font-bold">Manthan Yadav</h3>
                     <p>
                         <a
-                            href="https://github.com/"
+                            href="https://github.com/Manthanyadav"
                             target="_blank"
                             rel="noopener noreferrer"
                             className="text-blue-500 hover:underline"

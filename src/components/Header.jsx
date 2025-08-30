@@ -18,7 +18,7 @@ export default function Header({ darkMode, setDarkMode }) {
       {/* Navbar */}
       <nav className="flex items-center justify-between px-6 py-4 bg-yellow-400 dark:bg-gray-800 fixed top-0 left-0 w-full z-50" data-aos="zoom-out">
         {/* Left - Logo */}
-        <div className="font-bold text-2xl" data-aos="fade-right">Smart Innovators</div>
+        <div className="font-bold text-xl" data-aos="fade-right">Smart Innovators</div>
 
         {/* Center - Menu */}
         <ul className="hidden md:flex gap-6 font-semibold py-2" data-aos="zoom-out">

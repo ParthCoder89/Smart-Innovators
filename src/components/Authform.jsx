@@ -74,6 +74,9 @@ export default function Authform({ type, onClose, onAuthSuccess }) {
                     >
                         {type === "signin" ? "Sign In" : "Sign Up"}
                     </button>
+                    <button className="fixed top-5 right-5">
+                        *
+                    </button>
                 </form>
             </div>
         </div>
