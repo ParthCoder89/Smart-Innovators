@@ -41,20 +41,28 @@ export default function Header({ darkMode, setDarkMode }) {
               {user.email}
             </span>
           ) : (
-            <>
+            <div className="flex flex-col items-center ml-10 gap-1">
               <button
                 onClick={() => { setAuthType("signin"); setShowAuth(true); }}
-                className="bg-white dark:bg-gray-700 text-black dark:text-white px-4 py-1 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600"
+                className="bg-white dark:bg-gray-700 text-black dark:text-white px-4 py-1 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-600"
               >
                 Sign In
               </button>
-              <button
+              <p className="font-semibold" style={{fontSize: "12px"}}>
+                New User ?
+                <button
+                  className="text-blue-600 pl-1"
+                  onClick={() => { setAuthType("signup"); setShowAuth(true); }}>
+                  Sign Up Here
+                </button>
+              </p>
+              {/* <button
                 onClick={() => { setAuthType("signup"); setShowAuth(true); }}
                 className="bg-orange-600 text-white px-4 py-1 rounded-lg hover:bg-orange-500"
               >
                 Sign Up
-              </button>
-            </>
+              </button> */}
+            </div>
           )}
         </div>
       </nav>

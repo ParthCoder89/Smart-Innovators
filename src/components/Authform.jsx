@@ -1,4 +1,4 @@
-import React, { useEffect,useState } from "react";
+import React, { useEffect, useState } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
 
@@ -29,6 +29,14 @@ export default function Authform({ type, onClose, onAuthSuccess }) {
 
             {/* Sliding Panel */}
             <div className="relative w-full max-w-md bg-white dark:bg-gray-900 shadow-lg p-8 transform translate-x-0 transition-transform duration-300">
+
+                <button
+                    className="absolute top-4 right-4 text-4xl font-bold text-gray-600 hover:text-red-600"
+                    onClick={onClose}
+                >
+                    ×
+                </button>
+
                 <h2 className="text-2xl font-bold mt-10 mb-6 text-center">
                     {type === "signin" ? "Sign In" : "Sign Up"}
                 </h2>
@@ -74,9 +82,9 @@ export default function Authform({ type, onClose, onAuthSuccess }) {
                     >
                         {type === "signin" ? "Sign In" : "Sign Up"}
                     </button>
-                    <button className="fixed top-5 right-5">
+                    {/* <button className="fixed top-5 right-5">
                         *
-                    </button>
+                    </button> */}
                 </form>
             </div>
         </div>

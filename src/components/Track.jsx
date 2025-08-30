@@ -90,7 +90,9 @@ export default function Track() {
       >
         Track Your Bus 🚌
       </h2>
-      <p className=" text-2xl font-semibold text-center mb-20">
+      <p className=" text-2xl font-semibold text-center mb-20"
+        data-aos="zoom-out"
+      >
         Select your bus number to view and track its live location along with your own.
       </p>
       <div className="flex justify-around">
