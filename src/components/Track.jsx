@@ -98,7 +98,7 @@ export default function Track() {
       <div className="flex flex-col items-center gap-7 md:flex-row justify-around">
         {/* Left */}
         <div
-          className="bg-gray-100 dark:bg-gray-950 p-6 rounded-lg w-10/12 md:w-[40vw] "
+          className="flex flex-col items-center bg-gray-100 dark:bg-gray-950 p-6 rounded-lg w-10/12 md:w-[40vw] "
           style={{ border: "2px solid blue" }}
           data-aos="zoom-out"
         >
@@ -157,7 +157,7 @@ export default function Track() {
           {selectedBus && (
             <button
               onClick={() => setShowDistance(true)}
-              className="mt-4 bg-yellow-600 text-white px-4 py-2 mx-[30%] rounded-lg"
+              className="mt-4 bg-yellow-600  text-center text-white text-[8px] md:text-[16px] px-2 md:px-4 py-2 rounded-lg"
             >
               Distance From Me
             </button>
