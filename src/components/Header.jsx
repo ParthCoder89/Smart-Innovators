@@ -21,7 +21,7 @@ export default function Header({ darkMode, setDarkMode }) {
       <nav className="flex items-center justify-between px-6 py-4 bg-yellow-400 dark:bg-gray-800 fixed top-0 left-0 w-full z-50" data-aos="zoom-out">
         {/* Left - Logo */}
         {/* <div className="font-bold " data-aos="fade-right">Smart Innovators</div> */}
-        <img src={Logo} alt="Our Team Logo" className="w-24 mr-5 drop-shadow-[1px_1px_1px_white]"/>
+        <img src={Logo} alt="Our Team Logo" className="w-20 md:w-24 -ml-5 drop-shadow-[1px_1px_1px_white]"/>
 
         {/* Center - Menu */}
         <ul className="hidden md:flex gap-6 font-semibold py-2 text-[14px]" data-aos="zoom-out">
@@ -33,8 +33,8 @@ export default function Header({ darkMode, setDarkMode }) {
         </ul>
 
         {/* Right - Mode + Auth */}
-        <div className="flex items-center gap-3" data-aos="fade-left">
-          <button onClick={() => setDarkMode(!darkMode)} className="text-xl">
+        <div className="flex items-center" data-aos="fade-left">
+          <button onClick={() => setDarkMode(!darkMode)} className="md:text-xl -mr-3 md:mr-0">
             {darkMode ? <FaSun /> : <FaMoon />}
           </button>
 
@@ -47,11 +47,12 @@ export default function Header({ darkMode, setDarkMode }) {
             <div className="flex flex-col items-center ml-10 gap-1">
               <button
                 onClick={() => { setAuthType("signin"); setShowAuth(true); }}
-                className="bg-white dark:bg-gray-700 text-black dark:text-white px-4 py-1 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-600"
+                className="bg-white dark:bg-gray-700 text-black dark:text-white px-2 py-[3px] md:px-4 md:py-1 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-600"
               >
                 Sign In
               </button>
-              <p className="font-semibold" style={{ fontSize: "12px" }}>
+              <p className="font-semibold text-[9px] md:text-[13px]" 
+              >
                 New User ?
                 <button
                   className="text-blue-600 pl-1"
@@ -69,7 +70,7 @@ export default function Header({ darkMode, setDarkMode }) {
           )}
           <button
             onClick={() => setshowNav(!shownav)}
-            className=" ml-10 text-3xl md:hidden"
+            className="ml-5 md:ml-10 text-2xl md:text-3xl md:hidden"
           >
             &#9776;
           </button>

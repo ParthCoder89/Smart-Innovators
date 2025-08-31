@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+html, body {
+  overflow-x: hidden;
+}
+
 .google-map-image-div{
     animation: zoom 10s ease-in infinite;
 }

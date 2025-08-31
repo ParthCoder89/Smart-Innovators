@@ -11,7 +11,7 @@ const Contact = () => {
         AOS.refresh(); // force refresh so visible elements animate on load
     }, []);
     return (
-        <div className="bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-white py-16 px-6 ml-16 md:ml-0">
+        <div className="bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-white py-16 px-6">
             {/* Heading */}
             <h2 className="text-4xl font-bold text-center mt-10 mb-10" data-aos="zoom-out">
                 Contact Us 📩
@@ -95,7 +95,7 @@ const Contact = () => {
             </div>
 
             {/* Footer */}
-            <footer className="text-center mt-16 text-sm text-gray-600 dark:text-gray-400">
+            <footer className="text-center mt-10 md:mt-16 text-sm text-gray-600 dark:text-gray-400">
                 <p>© 2025 Smart Innovators. All rights reserved.</p>
                 <p>Disclaimer: This project is for educational and demonstration purposes only.</p>
             </footer>

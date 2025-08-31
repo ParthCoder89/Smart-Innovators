@@ -14,7 +14,7 @@ export default function Home() {
     <div
       className="min-h-screen flex flex-col justify-center items-center px-6 pt-20"
     >
-      <div className="flex justify-center ml-10">
+      <div className="flex justify-center">
         <h1 className="text-3xl md:text-6xl pt-6 text-center font-bold mb-12 mt-8"
           // data-aos="zoom-out"
         >
@@ -25,7 +25,7 @@ export default function Home() {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center mt-6">
         {/* Left */}
         <div
-          className="flex justify-center flex-col items-center pl-20 order-2 md:order-1"
+          className="flex justify-center flex-col items-center md:pl-20 order-2 md:order-1"
           data-aos="zoom-out"
         >
           <h2 className="text-2xl md:text-4xl font-bold mb-4 text-center">
@@ -35,7 +35,7 @@ export default function Home() {
             Track your bus in real-time, check available seats, and save time
             with Smart Innovators’ smart transport solution.
           </p>
-          <ul className="mt-5">
+          <ul>
             <li>
               <a
                 href="#track"
@@ -49,7 +49,7 @@ export default function Home() {
         </div>
 
         {/* Right */}
-        <div className="flex justify-center order-1 mb-28 md:order-2"
+        <div className="flex justify-center order-1 mb-28 md:order-2 mr-12 md:mr-0"
           data-aos="zoom-out"
         >
           <motion.div

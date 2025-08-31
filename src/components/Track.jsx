@@ -83,7 +83,7 @@ export default function Track() {
   };
 
   return (
-    <div id="track" className="min-h-screen px-6 pt-20 ml-16 md:ml-0">
+    <div id="track" className="min-h-screen px-6 pt-20">
       <h2
         className="text-4xl font-bold text-center mb-20 mt-10"
         data-aos="zoom-out"
@@ -98,7 +98,7 @@ export default function Track() {
       <div className="flex flex-col items-center gap-7 md:flex-row justify-around">
         {/* Left */}
         <div
-          className="bg-gray-100 dark:bg-gray-950 p-6 rounded-lg w-full md:w-[40vw] "
+          className="bg-gray-100 dark:bg-gray-950 p-6 rounded-lg w-10/12 md:w-[40vw] "
           style={{ border: "2px solid blue" }}
           data-aos="zoom-out"
         >
@@ -166,7 +166,7 @@ export default function Track() {
 
         {/* Right */}
         <div
-          className="flex-1 p-6 rounded-xl border border-gray-700 w-full md:w-[40vw] "
+          className="flex-1 p-6 rounded-xl border border-gray-700 w-10/12 md:w-[40vw] "
           style={{ border: "2px solid blue" }}
           data-aos="zoom-out"
         >

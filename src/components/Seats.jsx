@@ -24,7 +24,7 @@ export default function SeatDetails() {
     return (
         <div
             id="seats"
-            className="min-h-screen px-6 pt-10 pb-10 bg-gray-50 dark:bg-gray-900 ml-14 md:ml-0"
+            className="min-h-screen px-6 pt-10 pb-10 bg-gray-50 dark:bg-gray-900"
         >
             <h2 className="text-4xl font-bold text-center mt-16 mb-20 text-gray-900 dark:text-white" data-aos="zoom-out">
                 Seat Details

@@ -17,7 +17,7 @@ export default function AboutUs() {
         AOS.refresh(); // force refresh so visible elements animate on load
     }, []);
     return (
-        <div className="bg-gray-50 dark:bg-gray-900  px-6 pt-10 ml-14 md:ml-0">
+        <div className="bg-gray-50 dark:bg-gray-900  px-6 pt-10 ">
             {/* Heading */}
             <h1 className="text-4xl font-bold text-center mb-20 mt-14" data-aos="zoom-out">
                 About Us <span role="img" aria-label="team">👥</span>
