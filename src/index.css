@@ -16,3 +16,10 @@
         transform: scale(1);
     }    
 }
+
+.slide-nav{
+    transition: 0.5s;
+}
+.active-slide-nav{
+    right: 0;
+}

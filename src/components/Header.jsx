@@ -6,6 +6,7 @@ import AuthForm from "./Authform";
 
 export default function Header({ darkMode, setDarkMode }) {
   const [showAuth, setShowAuth] = useState(false);
+  const [shownav, setshowNav] = useState(false)
   const [authType, setAuthType] = useState("signin"); // "signin" or "signup"
   const [user, setUser] = useState(null); // stores signed in user details
 
@@ -48,7 +49,7 @@ export default function Header({ darkMode, setDarkMode }) {
               >
                 Sign In
               </button>
-              <p className="font-semibold" style={{fontSize: "12px"}}>
+              <p className="font-semibold" style={{ fontSize: "12px" }}>
                 New User ?
                 <button
                   className="text-blue-600 pl-1"
@@ -64,6 +65,21 @@ export default function Header({ darkMode, setDarkMode }) {
               </button> */}
             </div>
           )}
+          <button onClick={() => { setshowNav(!shownav) }} className="text-3xl">
+            &#9776;
+          </button>
+          <div className={`slide-nav ${shownav ? "active-slide-nav" : ""} w-1/2 h-screen fixed top-0 -right-full z-50 bg-gray-600 text-white`}>
+            <button className="text-2xl absolute top-4 right-4 font-bold" onClick={() => {setshowNav(!shownav)}}>
+              ×
+            </button>
+            <ul className="flex flex-col items-center gap-4 mt-20 font-medium text-xl">
+              <li><a href="#home" className="hover:text-white font-bold">Home</a></li>
+              <li><a href="#track" className="hover:text-white font-bold">Track Bus</a></li>
+              <li><a href="#seats" className="hover:text-white font-bold">Seat Details</a></li>
+              <li><a href="#about" className="hover:text-white font-bold">About Us</a></li>
+              <li><a href="#contact" className="hover:text-white font-bold">Contact Us</a></li>
+            </ul>
+          </div>
         </div>
       </nav>
 
