@@ -19,7 +19,12 @@
 
 .slide-nav{
     transition: 0.5s;
+    height: 90vh;
+    width: 50vw;
+    position: fixed;
+    right: -10px;
+    top: -100vh;
 }
 .active-slide-nav{
-    right: 0;
+    top: 0;
 }

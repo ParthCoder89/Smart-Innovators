@@ -3,6 +3,7 @@ import { FaMoon, FaSun } from "react-icons/fa";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import AuthForm from "./Authform";
+import Logo from '../assets/logo.png'
 
 export default function Header({ darkMode, setDarkMode }) {
   const [showAuth, setShowAuth] = useState(false);
@@ -19,10 +20,11 @@ export default function Header({ darkMode, setDarkMode }) {
       {/* Navbar */}
       <nav className="flex items-center justify-between px-6 py-4 bg-yellow-400 dark:bg-gray-800 fixed top-0 left-0 w-full z-50" data-aos="zoom-out">
         {/* Left - Logo */}
-        <div className="font-bold text-xl" data-aos="fade-right">Smart Innovators</div>
+        {/* <div className="font-bold " data-aos="fade-right">Smart Innovators</div> */}
+        <img src={Logo} alt="Our Team Logo" className="w-20 mr-5"/>
 
         {/* Center - Menu */}
-        <ul className="hidden md:flex gap-6 font-semibold py-2" data-aos="zoom-out">
+        <ul className="hidden md:flex gap-6 font-semibold py-2 text-[14px]" data-aos="zoom-out">
           <li><a href="#home" className="hover:text-white font-bold">Home</a></li>
           <li><a href="#track" className="hover:text-white font-bold">Track Bus</a></li>
           <li><a href="#seats" className="hover:text-white font-bold">Seat Details</a></li>
@@ -31,7 +33,7 @@ export default function Header({ darkMode, setDarkMode }) {
         </ul>
 
         {/* Right - Mode + Auth */}
-        <div className="flex items-center gap-6" data-aos="fade-left">
+        <div className="flex items-center gap-3" data-aos="fade-left">
           <button onClick={() => setDarkMode(!darkMode)} className="text-xl">
             {darkMode ? <FaSun /> : <FaMoon />}
           </button>
@@ -65,14 +67,17 @@ export default function Header({ darkMode, setDarkMode }) {
               </button> */}
             </div>
           )}
-          <button onClick={() => { setshowNav(!shownav) }} className="text-3xl">
+          <button
+            onClick={() => setshowNav(!shownav)}
+            className=" ml-10 text-3xl md:hidden"
+          >
             &#9776;
           </button>
-          <div className={`slide-nav ${shownav ? "active-slide-nav" : ""} w-1/2 h-screen fixed top-0 -right-full z-50 bg-gray-600 text-white`}>
-            <button className="text-2xl absolute top-4 right-4 font-bold" onClick={() => {setshowNav(!shownav)}}>
+          <div className={`slide-nav ${shownav ? "active-slide-nav" : ""}  fixed z-50 bg-gray-600 text-white `}>
+            <button className="text-2xl absolute top-4 right-4 font-bold" onClick={() => { setshowNav(!shownav) }}>
               ×
             </button>
-            <ul className="flex flex-col items-center gap-4 mt-20 font-medium text-xl">
+            <ul className="flex flex-col items-center gap-4 mt-20 font-medium text-xl px-20">
               <li><a href="#home" className="hover:text-white font-bold">Home</a></li>
               <li><a href="#track" className="hover:text-white font-bold">Track Bus</a></li>
               <li><a href="#seats" className="hover:text-white font-bold">Seat Details</a></li>

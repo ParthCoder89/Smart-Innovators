@@ -14,20 +14,21 @@ export default function Home() {
     <div
       className="min-h-screen flex flex-col justify-center items-center pt-20 px-6"
     >
-
-      <h1 className="text-5xl font-bold mb-12 mt-4 text-center"
-        data-aos="zoom-out"
-      >
-        Smart Transit System
-      </h1>
+      <div className="flex justify-center">
+        <h1 className="text-5xl pt-6 text-center md:text-6xl font-bold mb-12 mt-8 ml-10"
+          // data-aos="zoom-out"
+        >
+          Smart Transit System
+        </h1>
+      </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center mt-6">
         {/* Left */}
         <div
-          className="flex justify-center flex-col items-center pl-20"
+          className="flex justify-center flex-col items-center pl-20 order-2 md:order-1"
           data-aos="zoom-out"
         >
-          <h2 className="text-4xl font-bold mb-4 text-center">
+          <h2 className="text-3xl font-bold mb-4 text-center">
             Smart Bus Tracking & Seat Occupancy System
           </h2>
           <p className="text-lg mb-6 text-gray-700 dark:text-gray-300 text-center">
@@ -48,7 +49,7 @@ export default function Home() {
         </div>
 
         {/* Right */}
-        <div className="flex justify-center"
+        <div className="flex justify-center order-1 mb-28 md:order-2"
           data-aos="zoom-out"
         >
           <motion.div
@@ -66,7 +67,7 @@ export default function Home() {
               duration: 4,
               repeat: Infinity
             }}
-            className="w-72 h-72"
+            className="w-64 h-64 md:mb-4"
           >
             <img
               src={busImg}
