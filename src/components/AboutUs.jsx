@@ -17,7 +17,7 @@ export default function AboutUs() {
         AOS.refresh(); // force refresh so visible elements animate on load
     }, []);
     return (
-        <div className="bg-gray-50 dark:bg-gray-900  px-6 pt-10 ">
+        <div className="bg-gray-50 dark:bg-gray-900  px-6 pt-10 ml-14">
             {/* Heading */}
             <h1 className="text-4xl font-bold text-center mb-20 mt-14" data-aos="zoom-out">
                 About Us <span role="img" aria-label="team">👥</span>
@@ -90,8 +90,8 @@ export default function AboutUs() {
                     </div>
 
                     {/* Right: Role */}
-                    <div className="text-center md:text-right mr-20">
-                        <p className="font-semibold text-start">Role in Project : Iot Developer</p>
+                    <div className="text-center md:text-right mr-0 md:mr-20">
+                        <p className="font-semibold text-center">Role in Project : Iot Developer</p>
                     </div>
                 </div>
             </div>
@@ -136,8 +136,8 @@ export default function AboutUs() {
                 </div>
 
                 {/* Right: Role */}
-                <div className="text-center md:text-right mr-20">
-                    <p className="font-semibold text-start">Role in Project : Project Manager & Frontend Developer</p>
+                <div className="text-center md:text-right mr-0 md:mr-20">
+                    <p className="font-semibold text-center">Role in Project : Project Manager & Frontend Developer</p>
                 </div>
             </div>
 
@@ -180,8 +180,8 @@ export default function AboutUs() {
                 </div>
 
                 {/* Right: Role */}
-                <div className="text-center md:text-right mr-20">
-                    <p className="font-semibold text-start">Role in Project : Frontend Developer and Model Maker</p>
+                <div className="text-center md:text-right mr-0 md:mr-20">
+                    <p className="font-semibold text-center">Role in Project : Frontend Developer and Model Maker</p>
                 </div>
             </div>
 
@@ -224,8 +224,8 @@ export default function AboutUs() {
                 </div>
 
                 {/* Right: Role */}
-                <div className="text-center md:text-right mr-20">
-                    <p className="font-semibold text-start">Role in Project : Backend Developer</p>
+                <div className="text-center md:text-right mr-0 md:mr-20">
+                    <p className="font-semibold text-center">Role in Project : Backend Developer</p>
                 </div>
             </div>
 
@@ -269,12 +269,10 @@ export default function AboutUs() {
                 </div>
 
                 {/* Right: Role */}
-                <div className="text-center md:text-right mr-20">
-                    <p className="font-semibold text-start">Role in Project : DataBase Developer</p>
+                <div className="text-center md:text-right mr-0 md:mr-20">
+                    <p className="font-semibold text-center">Role in Project : DataBase Developer</p>
                 </div>
             </div>
-
-            {/* Repeat this block for each of the 6 members */}
 
             {/* Team Member 06 */}
 
@@ -315,12 +313,10 @@ export default function AboutUs() {
                 </div>
 
                 {/* Right: Role */}
-                <div className="text-center md:text-right mr-20">
-                    <p className="font-semibold text-start">Role in Project : AI Developer and Adviser</p>
+                <div className="text-center md:text-right mr-0 md:mr-20">
+                    <p className="font-semibold text-center">Role in Project : AI Developer and Adviser</p>
                 </div>
             </div>
-
-            {/* Repeat this block for each of the 6 members */}
         </div>
 
 

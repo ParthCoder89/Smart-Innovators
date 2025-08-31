@@ -12,10 +12,10 @@ export default function Home() {
 
   return (
     <div
-      className="min-h-screen flex flex-col justify-center items-center pt-20 px-6"
+      className="min-h-screen flex flex-col justify-center items-center px-6 pt-20"
     >
-      <div className="flex justify-center">
-        <h1 className="text-5xl pt-6 text-center md:text-6xl font-bold mb-12 mt-8 ml-10"
+      <div className="flex justify-center ml-10">
+        <h1 className="text-3xl md:text-6xl pt-6 text-center font-bold mb-12 mt-8"
           // data-aos="zoom-out"
         >
           Smart Transit System
@@ -28,7 +28,7 @@ export default function Home() {
           className="flex justify-center flex-col items-center pl-20 order-2 md:order-1"
           data-aos="zoom-out"
         >
-          <h2 className="text-3xl font-bold mb-4 text-center">
+          <h2 className="text-2xl md:text-4xl font-bold mb-4 text-center">
             Smart Bus Tracking & Seat Occupancy System
           </h2>
           <p className="text-lg mb-6 text-gray-700 dark:text-gray-300 text-center">
@@ -67,7 +67,7 @@ export default function Home() {
               duration: 4,
               repeat: Infinity
             }}
-            className="w-64 h-64 md:mb-4"
+            className="w-64 h-64 md:mb-6"
           >
             <img
               src={busImg}

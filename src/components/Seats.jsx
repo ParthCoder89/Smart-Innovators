@@ -24,15 +24,15 @@ export default function SeatDetails() {
     return (
         <div
             id="seats"
-            className="min-h-screen px-6 pt-10 pb-10 bg-gray-50 dark:bg-gray-900"
+            className="min-h-screen px-6 pt-10 pb-10 bg-gray-50 dark:bg-gray-900 ml-14"
         >
             <h2 className="text-4xl font-bold text-center mt-16 mb-20 text-gray-900 dark:text-white" data-aos="zoom-out">
                 Seat Details
             </h2>
 
-            <div className="grid md:grid-cols-3 gap-16" data-aos="zoom-out">
+            <div className="grid  md:grid-cols-3 gap-12" data-aos="zoom-out">
                 {/* First Column */}
-                <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg ml-10">
+                <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg w-full">
                     <label className="text-xl block mb-4 text-gray-800 dark:text-gray-200 font-semibold">
                         Select Bus:
                     </label>
@@ -61,9 +61,9 @@ export default function SeatDetails() {
                         />
                     </div>
                     <div className="mt-16 text-center">
-                        <ul>
+                        <ul >
                             <li>
-                                <a href="" className="py-4 px-6 bg-orange-500 rounded-lg text-white font-bold hover:bg-orange-400">
+                                <a href="" className="py-4 px-8 md:px-3 bg-orange-500 rounded-lg text-[11.5px] text-white text-center font-bold hover:bg-orange-400">
                                     Book Your Seat
                                 </a>
                             </li>
@@ -72,7 +72,7 @@ export default function SeatDetails() {
                 </div>
 
                 {/* Second Column */}
-                <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg" data-aos="zoom-out">
+                <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg w-full" data-aos="zoom-out">
                     <h3 className="text-2xl font-bold mb-10 text-gray-800 dark:text-gray-200 text-center">
                         Seat Layout
                     </h3>
@@ -92,7 +92,7 @@ export default function SeatDetails() {
                 </div>
 
                 {/* Third Column */}
-                <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg mr-10" data-aos="zoom-out">
+                <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg mr-10 w-full" data-aos="zoom-out">
                     <h3 className="text-2xl font-bold mb-10 text-gray-800 dark:text-gray-200 text-center">
                         Seats Details
                     </h3>

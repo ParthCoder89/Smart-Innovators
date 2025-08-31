@@ -11,22 +11,22 @@ const Contact = () => {
         AOS.refresh(); // force refresh so visible elements animate on load
     }, []);
     return (
-        <div className="bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-white py-16 px-6">
+        <div className="bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-white py-16 px-6 ml-16">
             {/* Heading */}
             <h2 className="text-4xl font-bold text-center mt-10 mb-10" data-aos="zoom-out">
                 Contact Us 📩
             </h2>
-            <p className="text-center max-w-2xl mx-auto mb-10" data-aos="zoom-out">
+            <p className="text-center max-w-2xl mx-5 md:mx-auto mb-10" data-aos="zoom-out">
                 Feel free to reach out to us for any queries, suggestions, or
                 collaboration opportunities regarding our project.
             </p>
 
             {/* Main 3-part section */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto mt-16" >
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-5 md:mx-auto" >
                 {/* Left: Email + Location */}
                 <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow" data-aos="fade-right">
                     <h3 className="text-2xl font-semibold mb-12 text-center">Our Info</h3>
-                    <p className="mb-4 text-center">
+                    <p className="mb-4 text-center text-[10px] md:text-[16px]">
                         <strong>Email :</strong> smartinnovators@example.com
                     </p>
                     <p className="text-center">

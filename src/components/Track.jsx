@@ -83,7 +83,7 @@ export default function Track() {
   };
 
   return (
-    <div id="track" className="min-h-screen px-6 pt-20">
+    <div id="track" className="min-h-screen px-6 pt-20 ml-16">
       <h2
         className="text-4xl font-bold text-center mb-20 mt-10"
         data-aos="zoom-out"
@@ -95,10 +95,10 @@ export default function Track() {
       >
         Select your bus number to view and track its live location along with your own.
       </p>
-      <div className="flex justify-around">
+      <div className="flex flex-col items-center gap-7 md:flex-row justify-around">
         {/* Left */}
         <div
-          className="bg-gray-100 dark:bg-gray-950 p-6 rounded-lg w-[40vw] ml-10"
+          className="bg-gray-100 dark:bg-gray-950 p-6 rounded-lg w-full md:w-[40vw] "
           style={{ border: "2px solid blue" }}
           data-aos="zoom-out"
         >
@@ -166,7 +166,7 @@ export default function Track() {
 
         {/* Right */}
         <div
-          className="flex-1 p-6 rounded-xl border border-gray-700 w-[40vw] ml-32 mr-10"
+          className="flex-1 p-6 rounded-xl border border-gray-700 w-full md:w-[40vw] "
           style={{ border: "2px solid blue" }}
           data-aos="zoom-out"
         >
