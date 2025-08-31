@@ -21,7 +21,7 @@ export default function Header({ darkMode, setDarkMode }) {
       <nav className="flex items-center justify-between px-6 py-4 bg-yellow-400 dark:bg-gray-800 fixed top-0 left-0 w-full z-50" data-aos="zoom-out">
         {/* Left - Logo */}
         {/* <div className="font-bold " data-aos="fade-right">Smart Innovators</div> */}
-        <img src={Logo} alt="Our Team Logo" className="w-20 mr-5"/>
+        <img src={Logo} alt="Our Team Logo" className="w-24 mr-5 drop-shadow-[1px_1px_1px_white]"/>
 
         {/* Center - Menu */}
         <ul className="hidden md:flex gap-6 font-semibold py-2 text-[14px]" data-aos="zoom-out">

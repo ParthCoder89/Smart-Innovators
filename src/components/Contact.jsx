@@ -11,7 +11,7 @@ const Contact = () => {
         AOS.refresh(); // force refresh so visible elements animate on load
     }, []);
     return (
-        <div className="bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-white py-16 px-6 ml-16">
+        <div className="bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-white py-16 px-6 ml-16 md:ml-0">
             {/* Heading */}
             <h2 className="text-4xl font-bold text-center mt-10 mb-10" data-aos="zoom-out">
                 Contact Us 📩

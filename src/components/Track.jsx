@@ -83,7 +83,7 @@ export default function Track() {
   };
 
   return (
-    <div id="track" className="min-h-screen px-6 pt-20 ml-16">
+    <div id="track" className="min-h-screen px-6 pt-20 ml-16 md:ml-0">
       <h2
         className="text-4xl font-bold text-center mb-20 mt-10"
         data-aos="zoom-out"
