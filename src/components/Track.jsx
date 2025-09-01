@@ -7,6 +7,7 @@ import "leaflet-routing-machine";
 import "leaflet-routing-machine/dist/leaflet-routing-machine.css";
 import AOS from "aos";
 import "aos/dist/aos.css";
+import Planjourney from "./Planjourney"
 
 const buses = [
   { id: "Bus 101", lat: 28.7041, lng: 77.1025, route: "Kashmere Gate" },
@@ -95,6 +96,9 @@ export default function Track() {
       >
         Select your bus number to view and track its live location along with your own.
       </p>
+      <div>
+        <Planjourney />
+      </div>
       <div className="flex flex-col items-center gap-7 md:flex-row justify-around">
         {/* Left */}
         <div

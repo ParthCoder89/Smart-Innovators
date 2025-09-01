@@ -18,7 +18,7 @@ export default function Header({ darkMode, setDarkMode }) {
   return (
     <>
       {/* Navbar */}
-      <nav className="flex items-center justify-between px-6 py-4 bg-yellow-400 dark:bg-gray-800 fixed top-0 left-0 w-full z-50" data-aos="zoom-out">
+      <nav className="flex items-center justify-between px-6 py-4 bg-blue-500 dark:bg-gray-800 fixed top-0 left-0 w-full z-50" data-aos="zoom-out">
         {/* Left - Logo */}
         {/* <div className="font-bold " data-aos="fade-right">Smart Innovators</div> */}
         <img src={Logo} alt="Our Team Logo" className="w-20 md:w-24 -ml-5 drop-shadow-[1px_1px_1px_white]"/>
@@ -55,7 +55,7 @@ export default function Header({ darkMode, setDarkMode }) {
               >
                 New User ?
                 <button
-                  className="text-blue-600 pl-1"
+                  className="text-yellow-400 pl-1"
                   onClick={() => { setAuthType("signup"); setShowAuth(true); }}>
                   Sign Up Here
                 </button>

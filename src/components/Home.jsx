@@ -12,7 +12,7 @@ export default function Home() {
 
   return (
     <div
-      className="min-h-screen flex flex-col justify-center items-center px-6 pt-20"
+      className="hero min-h-screen flex flex-col justify-center items-center px-6 pt-20"
     >
       <div className="flex justify-center">
         <h1 className="text-3xl md:text-6xl pt-6 text-center font-bold mb-12 mt-8"
@@ -31,7 +31,7 @@ export default function Home() {
           <h2 className="text-2xl md:text-4xl font-bold mb-4 text-center">
             Smart Bus Tracking & Seat Occupancy System
           </h2>
-          <p className="text-lg mb-6 text-gray-700 dark:text-gray-300 text-center">
+          <p className="text-lg mt-5 mb-8 text-center font-normal z-20">
             Track your bus in real-time, check available seats, and save time
             with Smart Innovators’ smart transport solution.
           </p>

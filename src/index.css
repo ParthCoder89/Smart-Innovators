@@ -2,26 +2,30 @@
 @tailwind components;
 @tailwind utilities;
 
-html, body {
-  overflow-x: hidden;
+html,
+body {
+    overflow-x: hidden;
 }
 
-.google-map-image-div{
+.google-map-image-div {
     animation: zoom 10s ease-in infinite;
 }
+
 @keyframes zoom {
-    0%{
+    0% {
         transform: scale(1);
     }
-    50%{
+
+    50% {
         transform: scale(1.1);
     }
-    100%{
+
+    100% {
         transform: scale(1);
-    }    
+    }
 }
 
-.slide-nav{
+.slide-nav {
     transition: 0.5s;
     height: 90vh;
     width: 50vw;
@@ -29,6 +33,16 @@ html, body {
     right: -10px;
     top: -100vh;
 }
-.active-slide-nav{
+
+.active-slide-nav {
     top: 0;
+}
+
+.hero {
+    background: linear-gradient(rgba(30, 41, 59, 0.7), rgba(30, 41, 59, 0.9)), url('https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80');
+    background-size: cover;
+    background-position: center;
+    color: white;
+    padding: 4rem 2rem;
+    text-align: center;
 }
