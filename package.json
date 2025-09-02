@@ -10,6 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@gegeweb/leaflet-routing-machine-openroute": "^0.1.10",
     "aos": "^2.3.4",
     "autoprefixer": "^10.4.21",
     "firebase": "^12.1.0",
