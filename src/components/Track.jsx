@@ -5,7 +5,7 @@ import "leaflet-routing-machine/dist/leaflet-routing-machine.css";
 import L from "leaflet";
 import "leaflet-routing-machine"; // Explicitly import leaflet-routing-machine
 import { getDistance } from "geolib";
-import PlanJourney from "./Planjourney";
+import PlanJourney from "./PlanJourney";
 
 // Error Boundary Component
 class ErrorBoundary extends React.Component {
