@@ -167,7 +167,7 @@ export default function Track() {
       <div>
         <PlanJourney onRouteSelect={handleRouteSelect} />
       </div>
-      <div className="flex flex-col items-center gap-7 md:flex-row justify-around">
+      <div className="flex flex-col items-center gap-7 mt-20 md:flex-row justify-around">
         <div
           className="flex flex-col items-center bg-gray-100 dark:bg-gray-950 p-6 rounded-lg w-10/12 md:w-[40vw]"
           style={{ border: "2px solid blue" }}

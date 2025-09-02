@@ -40,7 +40,7 @@ export default function Header({ darkMode, setDarkMode }) {
 
           {user ? (
             // If signed in → show email instead of buttons
-            <span className="bg-white dark:bg-gray-700 text-black dark:text-white px-4 py-1 rounded-lg">
+            <span className="text-[9px] md:text-[14px]text-black bg-white dark:bg-gray-700 dark:text-white ml-6 px-2 py-1 rounded-lg">
               {user.email}
             </span>
           ) : (
