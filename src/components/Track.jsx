@@ -6,9 +6,9 @@ import L from "leaflet";
 import "leaflet-routing-machine";
 import { getDistance } from "geolib";
 import PlanJourney from "./PlanJourney";
-import axios from "axios";
+import { databases, DATABASE_ID, BUSES_COLLECTION_ID, client } from "../lib/appwrite";
 
-// Error Boundary Component
+// Error Boundary Component (unchanged)
 class ErrorBoundary extends React.Component {
   state = { hasError: false, error: null };
 
@@ -96,23 +96,41 @@ export default function Track() {
   const [showRoute, setShowRoute] = useState(false);
   const [error, setError] = useState(null);
 
-  // Fetch bus data from API
+  // Dummy bus data with predefined routes (using stations from PlanJourney.jsx)
+  const dummyBuses = [
+    {
+      busNumber: "B001",
+      start: { lat: 28.7041, lng: 77.1025, name: "Central Station" }, // central_station
+      end: { lat: 28.4595, lng: 77.0266, name: "North Terminal" },   // north_terminal
+      latitude: 28.7041, // Starting point for now
+      longitude: 77.1025,
+      seats: Array.from({ length: 5 }).map((_, i) => ({ number: i + 1, occupied: Math.random() > 0.5 })),
+    },
+    {
+      busNumber: "B002",
+      start: { lat: 28.5355, lng: 77.391, name: "South Plaza" },     // south_plaza
+      end: { lat: 28.6507, lng: 77.231, name: "East Gate" },         // east_gate
+      latitude: 28.5355,
+      longitude: 77.391,
+      seats: Array.from({ length: 5 }).map((_, i) => ({ number: i + 1, occupied: Math.random() > 0.5 })),
+    },
+    {
+      busNumber: "B003",
+      start: { lat: 28.6692, lng: 77.089, name: "West End" },        // west_end
+      end: { lat: 28.7041, lng: 77.1025, name: "Central Station" },  // central_station
+      latitude: 28.6692,
+      longitude: 77.089,
+      seats: Array.from({ length: 5 }).map((_, i) => ({ number: i + 1, occupied: Math.random() > 0.5 })),
+    },
+  ];
+
+  // Use dummy data instead of Appwrite fetch for testing
   useEffect(() => {
-    const fetchBuses = async () => {
-      try {
-        const response = await axios.get("http://localhost:5000/api/buses"); // Adjust URL as needed
-        setBuses(response.data);
-      } catch (err) {
-        console.error("Error fetching buses:", err);
-        setError("Failed to load bus data. Please try again.");
-      }
-    };
-    fetchBuses();
-    const interval = setInterval(fetchBuses, 10000); // Poll every 10 seconds
-    return () => clearInterval(interval);
+    setBuses(dummyBuses); // Set dummy buses immediately
+    setSelectedBus(dummyBuses[0]); // Default to first bus
   }, []);
 
-  // Get user location
+  // Get user location (unchanged)
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(
       (pos) => {
@@ -141,64 +159,49 @@ export default function Track() {
       console.error("Invalid coordinates for distance calculation:", { start, end });
       return "N/A";
     }
-    try {
-      return (getDistance(start, end) / 1000).toFixed(2);
-    } catch (err) {
-      console.error("Distance calculation error:", err);
-      return "N/A";
-    }
+    return (getDistance(start, end) / 1000).toFixed(2); // in km
   };
 
-  const handleRouteSelect = (selectedRoute) => {
-    setRoute(selectedRoute);
+  const handleBusSelect = (e) => {
+    const bus = dummyBuses.find(b => b.busNumber === e.target.value);
+    setSelectedBus(bus);
+    setRoute(null);
     setShowRoute(false);
   };
 
-  const handleShowRoute = () => {
-    if (!selectedBus && !route) {
-      alert("Please select a bus or plan a journey first.");
-      return;
-    }
-    setShowRoute(true);
+  const handleShowRoute = () => setShowRoute(!showRoute);
+
+  const handleRouteSelect = (selectedRoute) => {
+    setRoute(selectedRoute);
+    setSelectedBus(null);
+    setShowRoute(false);
   };
 
   return (
-    <div id="track" className="min-h-screen px-6 pt-20">
-      <h2
-        className="text-4xl font-bold text-center mb-20 mt-10 text-gray-900 dark:text-white"
-        data-aos="zoom-out"
-      >
-        Track Your Bus 🚌
+    <div className="bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-white py-16 px-6">
+      <h2 className="text-4xl font-bold text-center mb-10" data-aos="zoom-out">
+        Track Bus 🚌
       </h2>
-      <p
-        className="text-2xl font-semibold text-center mb-20"
-        data-aos="zoom-out"
-      >
-        Select your bus number or plan a journey to view and track locations on the map.
+      <p className="text-center max-w-2xl mx-auto mb-10" data-aos="zoom-out">
+        Track buses in real-time, check seat availability, and plan your journey.
       </p>
-      {error && <p className="text-red-500 text-center mb-4">{error}</p>}
-      <div>
-        <PlanJourney onRouteSelect={handleRouteSelect} />
-      </div>
-      <div className="flex flex-col items-center gap-7 md:flex-row justify-around">
-        <div
-          className="flex flex-col items-center bg-gray-100 dark:bg-gray-950 p-6 rounded-lg w-10/12 md:w-[40vw]"
-          style={{ border: "2px solid blue" }}
-          data-aos="zoom-out"
-        >
+      <PlanJourney onRouteSelect={handleRouteSelect} />
+      <div className="flex flex-col md:flex-row justify-center items-start gap-8 mt-10 max-w-6xl mx-auto">
+        <div className="flex-1 p-6 rounded-xl border border-gray-700" style={{ border: "2px solid blue" }} data-aos="zoom-out">
+          <h3 className="text-2xl font-bold mb-4 text-center text-gray-800 dark:text-gray-200">
+            Select Bus to Track
+          </h3>
+          {error && <p className="text-red-500 text-center mb-4">{error}</p>}
           <select
-            onChange={(e) =>
-              setSelectedBus(buses.find((b) => b.busNumber === e.target.value) || null)
-            }
-            className="p-2 rounded mb-4 w-full text-black dark:text-white dark:bg-gray-800"
-            style={{ border: "2px solid red" }}
+            onChange={handleBusSelect}
+            className="w-full p-2 border rounded mb-4 text-black dark:text-white dark:bg-gray-800"
+            aria-label="Select bus to track"
             value={selectedBus?.busNumber || ""}
-            aria-label="Select a bus"
           >
-            <option value="">Select Your Bus</option>
-            {buses.map((bus) => (
+            <option value="">Select a bus</option>
+            {dummyBuses.map(bus => (
               <option key={bus.busNumber} value={bus.busNumber}>
-                {bus.busNumber} - {bus.seats.filter(s => !s.occupied).length} seats available
+                {bus.busNumber} - {bus.start.name} to {bus.end.name} ({bus.seats.filter(s => !s.occupied).length} seats available)
               </option>
             ))}
           </select>
@@ -223,7 +226,7 @@ export default function Track() {
                     icon={busIcon}
                   >
                     <Popup>
-                      {selectedBus.busNumber} - {selectedBus.seats.filter(s => !s.occupied).length} seats available
+                      {selectedBus.busNumber} - {selectedBus.start.name} to {selectedBus.end.name} ({selectedBus.seats.filter(s => !s.occupied).length} seats available)
                     </Popup>
                   </Marker>
                 )}
@@ -272,6 +275,7 @@ export default function Track() {
               {selectedBus && selectedBus.latitude && selectedBus.longitude && (
                 <>
                   <p><span className="font-semibold">Bus ID:</span> {selectedBus.busNumber}</p>
+                  <p><span className="font-semibold">Route:</span> {selectedBus.start.name} to {selectedBus.end.name}</p>
                   <p>
                     <span className="font-semibold">Coordinates:</span>{" "}
                     {selectedBus.latitude.toFixed(4)}, {selectedBus.longitude.toFixed(4)}

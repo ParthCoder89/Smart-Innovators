@@ -1,15 +1,58 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import SeatsJpg from "../assets/Seats.jpg";
 
-const buses = [
-  { id: "Bus 101", seats: 50, occupied: 48 },
-  { id: "Bus 102", seats: 50, occupied: 30 },
-  { id: "Bus 103", seats: 50, occupied: 10 },
-];
-
 export default function SeatDetails() {
-  const [selectedBus, setSelectedBus] = useState(buses[0]);
-  const availableSeats = selectedBus.seats - selectedBus.occupied;
+  const [buses, setBuses] = useState([]);
+  const [selectedBus, setSelectedBus] = useState(null);
+
+  // Dummy bus data with seat information
+  const dummyBuses = [
+    {
+      id: "B001",
+      seats: [
+        { number: 1, occupied: true },
+        { number: 2, occupied: false },
+        { number: 3, occupied: true },
+        { number: 4, occupied: false },
+        { number: 5, occupied: false },
+      ],
+    },
+    {
+      id: "B002",
+      seats: [
+        { number: 1, occupied: false },
+        { number: 2, occupied: true },
+        { number: 3, occupied: false },
+        { number: 4, occupied: true },
+        { number: 5, occupied: true },
+      ],
+    },
+    {
+      id: "B003",
+      seats: [
+        { number: 1, occupied: true },
+        { number: 2, occupied: true },
+        { number: 3, occupied: false },
+        { number: 4, occupied: false },
+        { number: 5, occupied: true },
+      ],
+    },
+  ];
+
+  // Set dummy data on component mount
+  useEffect(() => {
+    setBuses(dummyBuses);
+    setSelectedBus(dummyBuses[0]); // Default to first bus
+  }, []);
+
+  const handleBusSelect = (e) => {
+    setSelectedBus(buses.find(b => b.id === e.target.value));
+  };
+
+  if (!selectedBus) return <p>Loading...</p>;
+
+  const occupiedSeats = selectedBus.seats.filter(seat => seat.occupied).length;
+  const availableSeats = selectedBus.seats.length - occupiedSeats;
 
   return (
     <div
@@ -35,12 +78,10 @@ export default function SeatDetails() {
           </label>
           <select
             id="bus-select"
-            onChange={(e) =>
-              setSelectedBus(buses.find((bus) => bus.id === e.target.value) || buses[0])
-            }
+            onChange={handleBusSelect}
             className="p-2 rounded w-full text-black dark:text-white dark:bg-gray-800"
             style={{ border: "2px solid red" }}
-            value={selectedBus.id}
+            value={selectedBus?.id || ""}
             aria-label="Select a bus"
           >
             {buses.map((bus) => (
@@ -74,14 +115,14 @@ export default function SeatDetails() {
             Seat Layout
           </h3>
           <div className="grid grid-cols-5 gap-3 justify-items-center">
-            {Array.from({ length: selectedBus.seats }).map((_, index) => (
+            {selectedBus.seats.map((seat) => (
               <div
-                key={index}
+                key={seat.number}
                 className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-semibold ${
-                  index < selectedBus.occupied ? "bg-red-500 text-white" : "bg-green-500 text-white"
-                }`}
+                  seat.occupied ? "bg-red-500" : "bg-green-500"
+                } text-white`}
               >
-                {index + 1}
+                {seat.number}
               </div>
             ))}
           </div>
@@ -94,10 +135,10 @@ export default function SeatDetails() {
             Seats Details
           </h3>
           <p className="text-lg text-gray-700 dark:text-gray-300 mb-4 ml-4">
-            <strong>Occupied:</strong> {selectedBus.occupied} / {selectedBus.seats}
+            <strong>Occupied:</strong> {occupiedSeats} / {selectedBus.seats.length}
           </p>
           <p className="text-lg text-gray-700 dark:text-gray-300 ml-4">
-            <strong>Available:</strong> {availableSeats} / {selectedBus.seats}
+            <strong>Available:</strong> {availableSeats} / {selectedBus.seats.length}
           </p>
         </div>
       </div>

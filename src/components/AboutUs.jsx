@@ -106,10 +106,10 @@ export default function AboutUs() {
                 LinkedIn
               </a>
             </p>
-            <p className="text-gray-700 dark:text-gray-300">Email: parthgupta5041@gmail.com</p>
+            <p className="text-gray-700 dark:text-gray-300">Email: parthvaish2005@gmail.com</p>
           </div>
           <div className="text-center md:text-right mr-0 md:mr-20">
-            <p className="font-semibold text-gray-800 dark:text-gray-200">Role in Project: Project Manager & Frontend Developer</p>
+            <p className="font-semibold text-gray-800 dark:text-gray-200">Role in Project: Frontend Developer</p>
           </div>
         </div>
         {/* Team Member 3 */}
@@ -117,15 +117,15 @@ export default function AboutUs() {
           <div className="flex justify-center">
             <img
               src={Member3}
-              alt="Srashti Rastogi"
+              alt="Siddhant Mishra"
               className="rounded-full w-32 h-32 object-cover"
             />
           </div>
           <div className="text-center md:text-left">
-            <h3 className="text-xl font-bold text-gray-800 dark:text-gray-200">Srashti Rastogi</h3>
+            <h3 className="text-xl font-bold text-gray-800 dark:text-gray-200">Siddhant Mishra</h3>
             <p>
               <a
-                href="https://github.com/SrashtiCoder19"
+                href="https://github.com/siddhantmishra1305"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-blue-500 hover:underline"
@@ -134,7 +134,7 @@ export default function AboutUs() {
               </a>{" "}
               |{" "}
               <a
-                href="https://www.linkedin.com/in/srashti-rastogi-701350308"
+                href="https://www.linkedin.com/in/siddhant-mishra-865b6b2a2"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-blue-500 hover:underline"
@@ -142,10 +142,10 @@ export default function AboutUs() {
                 LinkedIn
               </a>
             </p>
-            <p className="text-gray-700 dark:text-gray-300">Email: vedkarastogi@gmail.com</p>
+            <p className="text-gray-700 dark:text-gray-300">Email: siddhantmishra1305@gmail.com</p>
           </div>
           <div className="text-center md:text-right mr-0 md:mr-20">
-            <p className="font-semibold text-gray-800 dark:text-gray-200">Role in Project: Frontend Developer and Model Maker</p>
+            <p className="font-semibold text-gray-800 dark:text-gray-200">Role in Project: Hardware Developer</p>
           </div>
         </div>
         {/* Team Member 4 */}

@@ -12,6 +12,7 @@
   "dependencies": {
     "@react-google-maps/api": "^2.20.7",
     "aos": "^2.3.4",
+    "appwrite": "^19.0.0",
     "autoprefixer": "^10.4.21",
     "axios": "^1.11.0",
     "firebase": "^12.1.0",
@@ -35,7 +36,7 @@
     "eslint-plugin-react-hooks": "^5.2.0",
     "eslint-plugin-react-refresh": "^0.4.20",
     "globals": "^16.3.0",
-    "react-devtools": "^6.1.5",
+    "react-devtools": "^1.0.5",
     "vite": "^7.1.2"
   }
 }

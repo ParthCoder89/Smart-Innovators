@@ -3,11 +3,12 @@ import { FaMoon, FaSun } from "react-icons/fa";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import AuthForm from "./Authform";
-import Logo from '../assets/logo.png'
+import Logo from '../assets/logo.png';
+import { account } from '../lib/appwrite';
 
 export default function Header({ darkMode, setDarkMode }) {
   const [showAuth, setShowAuth] = useState(false);
-  const [shownav, setshowNav] = useState(false)
+  const [shownav, setshowNav] = useState(false);
   const [authType, setAuthType] = useState("signin"); // "signin" or "signup"
   const [user, setUser] = useState(null); // stores signed in user details
 
@@ -15,12 +16,32 @@ export default function Header({ darkMode, setDarkMode }) {
     AOS.init({ duration: 1000, once: false });
   }, []);
 
+  useEffect(() => {
+    async function checkUser() {
+      try {
+        const userData = await account.get();
+        setUser(userData);
+      } catch (err) {
+        setUser(null);
+      }
+    }
+    checkUser();
+  }, []);
+
+  const handleLogout = async () => {
+    try {
+      await account.deleteSession('current');
+      setUser(null);
+    } catch (err) {
+      console.error("Logout failed:", err);
+    }
+  };
+
   return (
     <>
       {/* Navbar */}
       <nav className="flex items-center justify-between px-6 py-4 bg-blue-500 dark:bg-gray-800 fixed top-0 left-0 w-full z-50" data-aos="zoom-out">
         {/* Left - Logo */}
-        {/* <div className="font-bold " data-aos="fade-right">Smart Innovators</div> */}
         <img src={Logo} alt="Our Team Logo" className="w-20 md:w-24 -ml-5 drop-shadow-[1px_1px_1px_white]"/>
 
         {/* Center - Menu */}
@@ -39,10 +60,17 @@ export default function Header({ darkMode, setDarkMode }) {
           </button>
 
           {user ? (
-            // If signed in → show email instead of buttons
-            <span className="bg-white dark:bg-gray-700 text-black dark:text-white px-4 py-1 rounded-lg">
-              {user.email}
-            </span>
+            <div className="flex items-center ml-10 gap-2">
+              <span className="bg-white dark:bg-gray-700 text-black dark:text-white px-4 py-1 rounded-lg">
+                {user.email}
+              </span>
+              <button
+                onClick={handleLogout}
+                className="bg-red-600 text-white px-2 py-1 rounded-lg hover:bg-red-500"
+              >
+                Logout
+              </button>
+            </div>
           ) : (
             <div className="flex flex-col items-center ml-10 gap-1">
               <button
@@ -51,8 +79,7 @@ export default function Header({ darkMode, setDarkMode }) {
               >
                 Sign In
               </button>
-              <p className="font-semibold text-[9px] md:text-[13px]" 
-              >
+              <p className="font-semibold text-[9px] md:text-[13px]">
                 New User ?
                 <button
                   className="text-yellow-400 pl-1"
@@ -60,12 +87,6 @@ export default function Header({ darkMode, setDarkMode }) {
                   Sign Up Here
                 </button>
               </p>
-              {/* <button
-                onClick={() => { setAuthType("signup"); setShowAuth(true); }}
-                className="bg-orange-600 text-white px-4 py-1 rounded-lg hover:bg-orange-500"
-              >
-                Sign Up
-              </button> */}
             </div>
           )}
           <button
@@ -103,4 +124,3 @@ export default function Header({ darkMode, setDarkMode }) {
     </>
   );
 }
-

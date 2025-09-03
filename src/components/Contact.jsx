@@ -1,10 +1,11 @@
 import React, { useState } from "react";
+import { databases, DATABASE_ID, ID } from '../lib/appwrite';  // For submitting messages
 
 export default function Contact() {
   const [formData, setFormData] = useState({ name: "", email: "", message: "" });
   const [error, setError] = useState("");
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const { name, email, message } = formData;
     if (!name || !email || !message) {
@@ -16,9 +17,14 @@ export default function Contact() {
       return;
     }
     setError("");
-    console.log("Form submitted:", formData);
-    alert("Message sent successfully!");
-    setFormData({ name: "", email: "", message: "" });
+
+    try {
+      await databases.createDocument(DATABASE_ID, 'messages', ID.unique(), { name, email, message });  // Assume 'messages' collection exists
+      alert("Message sent successfully!");
+      setFormData({ name: "", email: "", message: "" });
+    } catch (err) {
+      setError("Failed to send message.");
+    }
   };
 
   const handleInputChange = (e) => {

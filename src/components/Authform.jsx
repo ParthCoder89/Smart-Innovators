@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { account, ID } from '../lib/appwrite';
 
 export default function Authform({ type, onClose, onAuthSuccess }) {
   const [email, setEmail] = useState("");
@@ -6,7 +7,7 @@ export default function Authform({ type, onClose, onAuthSuccess }) {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
     if (!/^\S+@\S+\.\S+$/.test(email)) {
@@ -21,11 +22,20 @@ export default function Authform({ type, onClose, onAuthSuccess }) {
       setError("Password must be at least 6 characters long.");
       return;
     }
-    const userData = { email, mobile };
-    onAuthSuccess(userData);
-    setEmail("");
-    setMobile("");
-    setPassword("");
+
+    try {
+      if (type === "signup") {
+        await account.create(ID.unique(), email, password, mobile);  // Using mobile as name for simplicity
+      }
+      await account.createEmailPasswordSession(email, password);
+      const userData = await account.get();
+      onAuthSuccess({ email: userData.email, mobile });  // Pass user data
+      setEmail("");
+      setMobile("");
+      setPassword("");
+    } catch (err) {
+      setError(err.message || "Authentication failed.");
+    }
   };
 
   return (
