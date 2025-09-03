@@ -91,4 +91,3 @@ export default function Authform({ type, onClose, onAuthSuccess }) {
     );
 }
 
-
