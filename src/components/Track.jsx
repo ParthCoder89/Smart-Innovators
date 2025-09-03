@@ -5,7 +5,7 @@ import "leaflet-routing-machine/dist/leaflet-routing-machine.css";
 import L from "leaflet";
 import "leaflet-routing-machine"; // Explicitly import leaflet-routing-machine
 import { getDistance } from "geolib";
-import PlanJourney from "./components/PlanJourney";
+import PlanJourney from "./PlanJourney";
 
 
 // Error Boundary Component
