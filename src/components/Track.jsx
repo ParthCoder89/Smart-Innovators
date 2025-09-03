@@ -5,7 +5,7 @@ import "leaflet-routing-machine/dist/leaflet-routing-machine.css";
 import L from "leaflet";
 import "leaflet-routing-machine";
 import { getDistance } from "geolib";
-import PlanJourney from "./PlanJourney";
+import PlanJourney from "./Planjourney";
 import { databases, DATABASE_ID, BUSES_COLLECTION_ID, client } from "../lib/appwrite";
 
 // Error Boundary Component (unchanged)
