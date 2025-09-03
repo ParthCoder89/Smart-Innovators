@@ -3,9 +3,10 @@ import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import "leaflet-routing-machine/dist/leaflet-routing-machine.css";
 import L from "leaflet";
-import "leaflet-routing-machine"; // Explicitly import leaflet-routing-machine
+import "leaflet-routing-machine";
 import { getDistance } from "geolib";
 import PlanJourney from "./PlanJourney";
+import axios from "axios";
 
 // Error Boundary Component
 class ErrorBoundary extends React.Component {
@@ -26,12 +27,6 @@ class ErrorBoundary extends React.Component {
     return this.props.children;
   }
 }
-
-const buses = [
-  { id: "Bus 101", lat: 28.7041, lng: 77.1025, route: "Kashmere Gate" },
-  { id: "Bus 102", lat: 28.4595, lng: 77.0266, route: "Gurgaon" },
-  { id: "Bus 103", lat: 28.5355, lng: 77.391, route: "Noida" },
-];
 
 const userIcon = new L.Icon({
   iconUrl: "https://cdn-icons-png.flaticon.com/512/64/64113.png",
@@ -95,11 +90,29 @@ function Routing({ start, end }) {
 
 export default function Track() {
   const [userLocation, setUserLocation] = useState(null);
+  const [buses, setBuses] = useState([]);
   const [selectedBus, setSelectedBus] = useState(null);
   const [route, setRoute] = useState(null);
   const [showRoute, setShowRoute] = useState(false);
   const [error, setError] = useState(null);
 
+  // Fetch bus data from API
+  useEffect(() => {
+    const fetchBuses = async () => {
+      try {
+        const response = await axios.get("http://localhost:5000/api/buses"); // Adjust URL as needed
+        setBuses(response.data);
+      } catch (err) {
+        console.error("Error fetching buses:", err);
+        setError("Failed to load bus data. Please try again.");
+      }
+    };
+    fetchBuses();
+    const interval = setInterval(fetchBuses, 10000); // Poll every 10 seconds
+    return () => clearInterval(interval);
+  }, []);
+
+  // Get user location
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(
       (pos) => {
@@ -138,7 +151,7 @@ export default function Track() {
 
   const handleRouteSelect = (selectedRoute) => {
     setRoute(selectedRoute);
-    setShowRoute(false); // Reset to require explicit "Show Route" click
+    setShowRoute(false);
   };
 
   const handleShowRoute = () => {
@@ -175,17 +188,17 @@ export default function Track() {
         >
           <select
             onChange={(e) =>
-              setSelectedBus(buses.find((b) => b.id === e.target.value) || null)
+              setSelectedBus(buses.find((b) => b.busNumber === e.target.value) || null)
             }
             className="p-2 rounded mb-4 w-full text-black dark:text-white dark:bg-gray-800"
             style={{ border: "2px solid red" }}
-            value={selectedBus?.id || ""}
+            value={selectedBus?.busNumber || ""}
             aria-label="Select a bus"
           >
             <option value="">Select Your Bus</option>
             {buses.map((bus) => (
-              <option key={bus.id} value={bus.id}>
-                {bus.id} - {bus.route}
+              <option key={bus.busNumber} value={bus.busNumber}>
+                {bus.busNumber} - {bus.seats.filter(s => !s.occupied).length} seats available
               </option>
             ))}
           </select>
@@ -204,13 +217,13 @@ export default function Track() {
                 <Marker position={userLocation} icon={userIcon}>
                   <Popup>You are here 📍</Popup>
                 </Marker>
-                {selectedBus && (
+                {selectedBus && selectedBus.latitude && selectedBus.longitude && (
                   <Marker
-                    position={[selectedBus.lat, selectedBus.lng]}
+                    position={[selectedBus.latitude, selectedBus.longitude]}
                     icon={busIcon}
                   >
                     <Popup>
-                      {selectedBus.id} - {selectedBus.route}
+                      {selectedBus.busNumber} - {selectedBus.seats.filter(s => !s.occupied).length} seats available
                     </Popup>
                   </Marker>
                 )}
@@ -221,10 +234,10 @@ export default function Track() {
                       end={route.to}
                     />
                   )}
-                  {selectedBus && showRoute && !route && (
+                  {selectedBus && showRoute && !route && selectedBus.latitude && selectedBus.longitude && (
                     <Routing
                       start={userLocation}
-                      end={selectedBus}
+                      end={{ lat: selectedBus.latitude, lng: selectedBus.longitude }}
                     />
                   )}
                 </ErrorBoundary>
@@ -256,17 +269,20 @@ export default function Track() {
           </h3>
           {selectedBus || route ? (
             <>
-              {selectedBus && (
+              {selectedBus && selectedBus.latitude && selectedBus.longitude && (
                 <>
-                  <p><span className="font-semibold">Bus ID:</span> {selectedBus.id}</p>
-                  <p><span className="font-semibold">Route:</span> {selectedBus.route}</p>
+                  <p><span className="font-semibold">Bus ID:</span> {selectedBus.busNumber}</p>
                   <p>
                     <span className="font-semibold">Coordinates:</span>{" "}
-                    {selectedBus.lat.toFixed(4)}, {selectedBus.lng.toFixed(4)}
+                    {selectedBus.latitude.toFixed(4)}, {selectedBus.longitude.toFixed(4)}
+                  </p>
+                  <p>
+                    <span className="font-semibold">Available Seats:</span>{" "}
+                    {selectedBus.seats.filter(s => !s.occupied).length} / {selectedBus.seats.length}
                   </p>
                   {userLocation && (
                     <p className="text-green-400 font-semibold">
-                      Distance to Bus: {calculateDistance(userLocation, selectedBus)} km
+                      Distance to Bus: {calculateDistance(userLocation, { lat: selectedBus.latitude, lng: selectedBus.longitude })} km
                     </p>
                   )}
                 </>
