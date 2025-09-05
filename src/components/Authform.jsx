@@ -1,5 +1,7 @@
 import React, { useState } from "react";
-import { account, ID } from '../lib/appwrite';
+import { auth, db } from '../lib/firebase'; // Import Firebase auth and Firestore
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+import { doc, setDoc } from "firebase/firestore"; // For storing mobile number
 
 export default function Authform({ type, onClose, onAuthSuccess }) {
   const [email, setEmail] = useState("");
@@ -24,12 +26,20 @@ export default function Authform({ type, onClose, onAuthSuccess }) {
     }
 
     try {
+      let userCredential;
       if (type === "signup") {
-        await account.create(ID.unique(), email, password, mobile);  // Using mobile as name for simplicity
+        userCredential = await createUserWithEmailAndPassword(auth, email, password);
+        // Store mobile number in Firestore under users collection
+        await setDoc(doc(db, "users", userCredential.user.uid), {
+          mobile,
+          email,
+          createdAt: new Date().toISOString()
+        });
+      } else {
+        userCredential = await signInWithEmailAndPassword(auth, email, password);
       }
-      await account.createEmailPasswordSession(email, password);
-      const userData = await account.get();
-      onAuthSuccess({ email: userData.email, mobile });  // Pass user data
+      const userData = userCredential.user;
+      onAuthSuccess({ email: userData.email, mobile }); // Pass user data
       setEmail("");
       setMobile("");
       setPassword("");

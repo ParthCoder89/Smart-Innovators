@@ -4,37 +4,43 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 import AuthForm from "./Authform";
 import Logo from '../assets/logo.png';
-import { account } from '../lib/appwrite';
+import { auth } from '../lib/firebase';
+import { onAuthStateChanged, signOut } from "firebase/auth";
 
 export default function Header({ darkMode, setDarkMode }) {
   const [showAuth, setShowAuth] = useState(false);
   const [shownav, setshowNav] = useState(false);
   const [authType, setAuthType] = useState("signin"); // "signin" or "signup"
-  const [user, setUser] = useState(null); // stores signed in user details
+  const [user, setUser] = useState(null); // Stores signed-in user details
 
   useEffect(() => {
     AOS.init({ duration: 1000, once: false });
   }, []);
 
   useEffect(() => {
-    async function checkUser() {
-      try {
-        const userData = await account.get();
-        setUser(userData);
-      } catch (err) {
-        setUser(null);
-      }
-    }
-    checkUser();
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+    });
+    return () => unsubscribe(); // Cleanup subscription on unmount
   }, []);
 
   const handleLogout = async () => {
     try {
-      await account.deleteSession('current');
+      await signOut(auth);
       setUser(null);
     } catch (err) {
       console.error("Logout failed:", err);
     }
+  };
+
+  const toggleAuthForm = (type) => {
+    setAuthType(type);
+    setShowAuth(true);
+  };
+
+  const handleAuthSuccess = (userData) => {
+    setShowAuth(false);
+    setUser({ email: userData.email });
   };
 
   return (
@@ -72,53 +78,75 @@ export default function Header({ darkMode, setDarkMode }) {
               </button>
             </div>
           ) : (
-            <div className="flex flex-col items-center ml-10 gap-1">
+            <div className="flex items-center ml-10 gap-2">
               <button
-                onClick={() => { setAuthType("signin"); setShowAuth(true); }}
-                className="bg-white dark:bg-gray-700 text-black dark:text-white px-2 py-[3px] md:px-4 md:py-1 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-600"
+                onClick={() => toggleAuthForm("signin")}
+                className="bg-green-600 text-white px-4 py-1 rounded-lg hover:bg-green-500"
               >
                 Sign In
               </button>
-              <p className="font-semibold text-[9px] md:text-[13px]">
-                New User ?
-                <button
-                  className="text-yellow-400 pl-1"
-                  onClick={() => { setAuthType("signup"); setShowAuth(true); }}>
-                  Sign Up Here
-                </button>
-              </p>
+              <button
+                onClick={() => toggleAuthForm("signup")}
+                className="bg-orange-600 text-white px-4 py-1 rounded-lg hover:bg-orange-500"
+              >
+                Sign Up
+              </button>
             </div>
           )}
+        </div>
+
+        {/* Mobile Menu Toggle */}
+        <div className="md:hidden">
           <button
+            className="text-2xl text-white"
             onClick={() => setshowNav(!shownav)}
-            className="ml-5 md:ml-10 text-2xl md:text-3xl md:hidden"
+            aria-label="Toggle mobile menu"
           >
-            &#9776;
+            {shownav ? "×" : "☰"}
           </button>
-          <div className={`slide-nav ${shownav ? "active-slide-nav" : ""}  fixed z-50 bg-gray-600 text-white `}>
-            <button className="text-2xl absolute top-4 right-4 font-bold" onClick={() => { setshowNav(!shownav) }}>
-              ×
-            </button>
-            <ul className="flex flex-col items-center gap-4 mt-20 font-medium text-xl px-20">
-              <li><a href="#home" className="hover:text-white font-bold">Home</a></li>
-              <li><a href="#track" className="hover:text-white font-bold">Track Bus</a></li>
-              <li><a href="#seats" className="hover:text-white font-bold">Seat Details</a></li>
-              <li><a href="#about" className="hover:text-white font-bold">About Us</a></li>
-              <li><a href="#contact" className="hover:text-white font-bold">Contact Us</a></li>
-            </ul>
-          </div>
         </div>
       </nav>
 
-      {/* Auth Form Drawer */}
+      {/* Mobile Slide-in Menu */}
+      <div
+        className={`slide-nav bg-blue-500 dark:bg-gray-800 text-white md:hidden z-40 ${shownav ? "active-slide-nav" : ""}`}
+        style={{ border: "1px solid white" }}
+      >
+        <ul className="flex flex-col gap-6 font-semibold text-center text-[14px] mt-20">
+          <li>
+            <a href="#home" className="hover:text-gray-300" onClick={() => setshowNav(false)}>
+              Home
+            </a>
+          </li>
+          <li>
+            <a href="#track" className="hover:text-gray-300" onClick={() => setshowNav(false)}>
+              Track Bus
+            </a>
+          </li>
+          <li>
+            <a href="#seats" className="hover:text-gray-300" onClick={() => setshowNav(false)}>
+              Seat Details
+            </a>
+          </li>
+          <li>
+            <a href="#about" className="hover:text-gray-300" onClick={() => setshowNav(false)}>
+              About Us
+            </a>
+          </li>
+          <li>
+            <a href="#contact" className="hover:text-gray-300" onClick={() => setshowNav(false)}>
+              Contact Us
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      {/* Auth Form */}
       {showAuth && (
         <AuthForm
           type={authType}
           onClose={() => setShowAuth(false)}
-          onAuthSuccess={(userData) => {
-            setUser(userData);
-            setShowAuth(false);
-          }}
+          onAuthSuccess={handleAuthSuccess}
         />
       )}
     </>

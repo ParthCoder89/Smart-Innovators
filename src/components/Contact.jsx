@@ -1,13 +1,18 @@
 import React, { useState } from "react";
-import { databases, DATABASE_ID, ID } from '../lib/appwrite';  // For submitting messages
+import { db } from "../lib/firebase"; // Import Firebase Firestore
+import { collection, addDoc } from "firebase/firestore";
 
 export default function Contact() {
   const [formData, setFormData] = useState({ name: "", email: "", message: "" });
   const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setError("");
+    setSuccess("");
     const { name, email, message } = formData;
+
     if (!name || !email || !message) {
       setError("Please fill out all fields.");
       return;
@@ -16,141 +21,102 @@ export default function Contact() {
       setError("Please enter a valid email address.");
       return;
     }
-    setError("");
 
     try {
-      await databases.createDocument(DATABASE_ID, 'messages', ID.unique(), { name, email, message });  // Assume 'messages' collection exists
-      alert("Message sent successfully!");
+      await addDoc(collection(db, "messages"), {
+        name,
+        email,
+        message,
+        createdAt: new Date().toISOString(),
+      });
+      setSuccess("Message sent successfully!");
       setFormData({ name: "", email: "", message: "" });
     } catch (err) {
-      setError("Failed to send message.");
+      setError("Failed to send message: " + err.message);
     }
   };
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-  };
-
   return (
-    <div className="bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-white py-16 px-6">
-      <h2
-        className="text-4xl font-bold text-center mt-10 mb-10"
-        data-aos="zoom-out"
-      >
-        Contact Us 📩
+    <div id="contact" className="min-h-screen bg-gray-50 dark:bg-gray-900 px-6 pt-10">
+      <h2 className="text-4xl font-bold text-center mt-16 mb-20 text-gray-900 dark:text-white" data-aos="zoom-out">
+        Contact Us
       </h2>
-      <p
-        className="text-center max-w-2xl mx-5 md:mx-auto mb-10"
-        data-aos="zoom-out"
-      >
-        Feel free to reach out to us for any queries, suggestions, or collaboration opportunities regarding our project.
-      </p>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-5 md:mx-auto">
-        <div
-          className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow"
-          data-aos="fade-right"
-        >
-          <h3 className="text-2xl font-semibold mb-12 text-center text-gray-800 dark:text-gray-200">
-            Our Info
+      <div className="max-w-4xl mx-auto grid md:grid-cols-2 gap-12">
+        <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg" data-aos="fade-right">
+          <h3 className="text-2xl font-bold mb-4 text-gray-800 dark:text-gray-200">
+            Get in Touch
           </h3>
-          <p className="mb-4 text-center text-[10px] md:text-[16px] text-gray-700 dark:text-gray-300">
-            <strong>Email:</strong> smartinnovators@example.com
-          </p>
-          <p className="text-center text-gray-700 dark:text-gray-300">
-            <strong>Location:</strong> Invertis University Bareilly, Uttar Pradesh, India
-          </p>
-        </div>
-        <div
-          className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow"
-          data-aos="zoom-out"
-        >
-          <h3 className="text-2xl font-semibold mb-12 text-center text-gray-800 dark:text-gray-200">
-            Send a Message
-          </h3>
-          {error && <p className="text-red-500 text-center mb-4">{error}</p>}
-          <form className="space-y-4" onSubmit={handleSubmit}>
-            <input
-              type="text"
-              name="name"
-              placeholder="Your Name"
-              value={formData.name}
-              onChange={handleInputChange}
-              className="w-full px-4 py-1 border rounded-lg focus:outline-none focus:ring focus:border-blue-400 text-black dark:text-white dark:bg-gray-800"
-              aria-label="Your name"
-            />
-            <input
-              type="email"
-              name="email"
-              placeholder="Your Email"
-              value={formData.email}
-              onChange={handleInputChange}
-              className="w-full px-4 py-1 border rounded-lg focus:outline-none focus:ring focus:border-blue-400 text-black dark:text-white dark:bg-gray-800"
-              aria-label="Your email"
-            />
-            <textarea
-              name="message"
-              rows="4"
-              placeholder="Your Message"
-              value={formData.message}
-              onChange={handleInputChange}
-              className="w-full px-4 py-1 border rounded-lg focus:outline-none focus:ring focus:border-blue-400 text-black dark:text-white dark:bg-gray-800"
-              aria-label="Your message"
-            ></textarea>
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <div>
+              <label htmlFor="name" className="block text-gray-700 dark:text-gray-300">Name</label>
+              <input
+                id="name"
+                type="text"
+                className="w-full p-2 border rounded mt-1 text-black dark:text-white dark:bg-gray-800"
+                value={formData.name}
+                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                required
+              />
+            </div>
+            <div>
+              <label htmlFor="email" className="block text-gray-700 dark:text-gray-300">Email</label>
+              <input
+                id="email"
+                type="email"
+                className="w-full p-2 border rounded mt-1 text-black dark:text-white dark:bg-gray-800"
+                value={formData.email}
+                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                required
+              />
+            </div>
+            <div>
+              <label htmlFor="message" className="block text-gray-700 dark:text-gray-300">Message</label>
+              <textarea
+                id="message"
+                className="w-full p-2 border rounded mt-1 text-black dark:text-white dark:bg-gray-800"
+                rows="5"
+                value={formData.message}
+                onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                required
+              />
+            </div>
+            {error && <p className="text-red-500 text-center">{error}</p>}
+            {success && <p className="text-green-500 text-center">{success}</p>}
             <button
               type="submit"
-              className="w-full py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition"
+              className="w-full bg-orange-600 text-white py-2 rounded hover:bg-orange-500"
               aria-label="Send message"
             >
-              Send
+              Send Message
             </button>
           </form>
         </div>
-        <div
-          className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow"
-          data-aos="fade-left"
-        >
-          <h3 className="text-2xl font-semibold mb-12 text-center text-gray-800 dark:text-gray-200">
-            Follow Us
+        <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg" data-aos="fade-left">
+          <h3 className="text-2xl font-bold mb-4 text-gray-800 dark:text-gray-200">
+            Contact Information
           </h3>
-          <ul className="space-y-3 flex flex-col items-center">
-            <li>
-              <a
-                href="https://github.com/ParthCoder89/Smart-Innovators"
-                className="text-blue-500 hover:underline"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a
-                href="https://www.linkedin.com/in/parth-vaish-46b51533a"
-                className="text-blue-500 hover:underline"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                LinkedIn
-              </a>
-            </li>
-            <li>
-              <a
-                href="https://twitter.com/SmartInnovators"
-                className="text-blue-500 hover:underline"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Twitter
-              </a>
-            </li>
-          </ul>
+          <p className="text-gray-700 dark:text-gray-300 mb-4">
+            <strong>Address:</strong> 123 Transit Way, City, Country
+          </p>
+          <p className="text-gray-700 dark:text-gray-300 mb-4">
+            <strong>Email:</strong> support@smarttransit.com
+          </p>
+          <p className="text-gray-700 dark:text-gray-300 mb-4">
+            <strong>Phone:</strong> +123-456-7890
+          </p>
+          <div className="mt-6">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3151.835434509374!2d144.9537363153167!3d-37.81627977975171!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ad642af0f11fd81%3A0xf0727e3f1f2b5!2sFederation+Square!5e0!3m2!1sen!2sau!4v1533792524699"
+              className="w-full h-64 rounded-lg"
+              frameBorder="0"
+              style={{ border: 0 }}
+              allowFullScreen
+              aria-hidden="false"
+              title="Contact Location Map"
+            ></iframe>
+          </div>
         </div>
       </div>
-      <footer className="text-center mt-10 md:mt-16 text-sm text-gray-600 dark:text-gray-400">
-        <p>© 2025 Smart Innovators. All rights reserved.</p>
-        <p>Disclaimer: This project is for educational and demonstration purposes only.</p>
-      </footer>
     </div>
   );
 }

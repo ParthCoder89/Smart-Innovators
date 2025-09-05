@@ -10,12 +10,13 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@dataconnect/generated": "file:src/dataconnect-generated",
     "@react-google-maps/api": "^2.20.7",
     "aos": "^2.3.4",
     "appwrite": "^19.0.0",
     "autoprefixer": "^10.4.21",
     "axios": "^1.11.0",
-    "firebase": "^12.1.0",
+    "firebase": "^12.2.1",
     "framer-motion": "^12.23.12",
     "geolib": "^3.3.4",
     "leaflet": "^1.9.4",
