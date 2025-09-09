@@ -1,0 +1,84 @@
+[
+  {
+    "bus_stop": "Chowki Chauraha",
+    "longitude": 79.4200996,
+    "latitude": 28.3486283,
+    "bus_number": "UP25 AB 1543"
+  },
+  {
+    "bus_stop": "Satellite Bus Station",
+    "longitude": 79.439090,
+    "latitude": 28.350626,
+    "bus_number": "UP25 XY 1122"
+  },
+  {
+    "bus_stop": "Invertis University",
+    "longitude": 79.492715,
+    "latitude": 28.292112
+  },
+  {
+    "bus_stop": "Rajendra Nagar",
+    "longitude": 79.426248,
+    "latitude": 28.386917
+  },
+  {
+    "bus_stop": "Ayub Khan Chauraha",
+    "longitude": 79.417642,
+    "latitude": 28.355279
+  }, 
+  {
+    "bus_stop": "Sadar Colony",
+    "longitude": 79.439111,
+    "latitude": 28.317743
+  },
+  {
+    "bus_stop": "Bareilly Railway Junction",
+    "longitude": 79.410772,
+    "latitude": 28.337084
+  },
+  {
+    "bus_stop": "Vipin Hospital",
+    "longitude": 79.411212,
+    "latitude": 28.38940
+  },
+  {
+    "bus_stop": "Green Park Colony",
+    "longitude": 79.471673,
+    "latitude": 28.365282
+  },
+  {
+    "bus_stop": "Karamchari Nagar",
+    "longitude": 79.400033,
+    "latitude": 28.384432
+  },
+  {
+    "bus_stop": "Kargaina",
+    "longitude": 79.384363,
+    "latitude": 28.323756
+  },
+  {
+    "bus_stop": "Fun City",
+    "longitude": 79.459628,
+    "latitude": 28.404610
+  },
+  {
+    "bus_stop": "Cb Ganj",
+    "longitude": 79.379211,
+    "latitude": 28.399263
+  },
+  {
+    "bus_stop": "Gandhi Udhyan Park",
+    "longitude": 79.427303,
+    "latitude": 28.344437
+  },
+  {
+    "bus_stop": "Phoenix Mall",
+    "longitude": 79.456435,
+    "latitude": 28.395753
+  },
+  {
+    "bus_stop": "Dohara",
+    "longitude": 79.456435,
+    "latitude": 28.370498
+  }
+]
