@@ -3665,11 +3665,476 @@
 
 
 
+// import React, { useState, useEffect } from "react";
+// import { MapContainer, TileLayer, Marker, Popup, Polyline, useMap } from "react-leaflet";
+// import "leaflet/dist/leaflet.css";
+// import L from "leaflet";
+// import { getDistance } from "geolib";
+
+// const userIcon = new L.Icon({
+//   iconUrl: "https://cdn-icons-png.flaticon.com/512/64/64113.png",
+//   iconSize: [30, 30],
+//   iconAnchor: [15, 30],
+//   popupAnchor: [0, -30],
+// });
+
+// const busIcon = new L.Icon({
+//   iconUrl: "https://cdn-icons-png.flaticon.com/512/61/61205.png",
+//   iconSize: [30, 30],
+//   iconAnchor: [15, 30],
+//   popupAnchor: [0, -30],
+// });
+
+// // Helper component to update map center dynamically
+// function RecenterMap({ center }) {
+//   const map = useMap();
+//   useEffect(() => {
+//     if (center) {
+//       map.setView(center, 15);
+//     }
+//   }, [center, map]);
+//   return null;
+// }
+
+// export default function TrackBus() {
+//   const [userLocation, setUserLocation] = useState(null);
+//   const [userAddress, setUserAddress] = useState("");
+//   const [locationEnabled, setLocationEnabled] = useState(false);
+
+//   const [buses, setBuses] = useState([]);
+//   const [busData, setBusData] = useState({});
+//   const [selectedBus, setSelectedBus] = useState("");
+//   const [distance, setDistance] = useState(null);
+//   const [showPath, setShowPath] = useState(false);
+
+//   // Function to request user location manually
+//   const getUserLocation = () => {
+//     if (!navigator.geolocation) {
+//       alert("Geolocation is not supported by your browser.");
+//       return;
+//     }
+
+//     navigator.geolocation.getCurrentPosition(
+//       (pos) => {
+//         const loc = { lat: pos.coords.latitude, lng: pos.coords.longitude };
+//         setUserLocation(loc);
+//         setLocationEnabled(true);
+
+//         // Reverse Geocoding for place name
+//         fetch(
+//           `https://nominatim.openstreetmap.org/reverse?format=json&lat=${loc.lat}&lon=${loc.lng}`
+//         )
+//           .then((res) => res.json())
+//           .then((data) => setUserAddress(data.display_name || "Unknown Place"))
+//           .catch(() => setUserAddress("Unknown Place"));
+//       },
+//       (err) => {
+//         alert("Location access denied or unavailable!");
+//         console.error(err);
+//       }
+//     );
+//   };
+
+//   // Fetch initial bus data
+//   useEffect(() => {
+//     fetch("http://localhost:5000/api/busdata")
+//       .then((res) => res.json())
+//       .then((data) => {
+//         const latest = {};
+//         const uniqueBuses = [...new Set(data.map((d) => d.busNumber))];
+//         data.forEach((d) => {
+//           if (!latest[d.busNumber] || d.timestamp > latest[d.busNumber].timestamp) {
+//             latest[d.busNumber] = d;
+//           }
+//         });
+//         setBuses(uniqueBuses);
+//         setBusData(latest);
+//       })
+//       .catch((err) => console.error(err));
+//   }, []);
+
+//   // WebSocket live updates
+//   useEffect(() => {
+//     const ws = new WebSocket("ws://localhost:5000");
+//     ws.onmessage = (event) => {
+//       const newData = JSON.parse(event.data);
+//       setBusData((prev) => ({
+//         ...prev,
+//         [newData.busNumber]: newData,
+//       }));
+//     };
+//     return () => ws.close();
+//   }, []);
+
+//   // Distance calculation
+//   useEffect(() => {
+//     if (userLocation && selectedBus && busData[selectedBus]) {
+//       const busLoc = busData[selectedBus];
+//       const dist =
+//         getDistance(
+//           { latitude: userLocation.lat, longitude: userLocation.lng },
+//           { latitude: busLoc.latitude, longitude: busLoc.longitude }
+//         ) / 1000;
+//       setDistance(dist.toFixed(2));
+//     }
+//   }, [selectedBus, busData, userLocation]);
+
+//   return (
+//     <section
+//       id="track"
+//       className="min-h-screen bg-gray-100 dark:bg-gray-900 py-16 px-6"
+//     >
+//       <h2 className="text-4xl font-bold text-center mb-12">Track Bus</h2>
+
+//       {/* Enable Location Button */}
+//       {!locationEnabled && (
+//         <div className="flex justify-center mb-6">
+//           <button
+//             onClick={getUserLocation}
+//             className="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-lg font-semibold"
+//           >
+//             Enable Location
+//           </button>
+//         </div>
+//       )}
+
+//       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto">
+//         <div>
+//           <label className="block text-gray-700 dark:text-gray-200 mb-2">
+//             Select Bus
+//           </label>
+//           <select
+//             value={selectedBus}
+//             onChange={(e) => setSelectedBus(e.target.value)}
+//             className="w-full p-3 border rounded-lg dark:bg-gray-700 dark:text-white"
+//           >
+//             <option value="">-- Choose Bus --</option>
+//             {buses.map((bus) => (
+//               <option key={bus} value={bus}>
+//                 {bus}
+//               </option>
+//             ))}
+//           </select>
+
+//           {/* Map */}
+//           <MapContainer
+//             center={userLocation || [20.5937, 78.9629]} // fallback: India
+//             zoom={13}
+//             style={{ height: "400px", width: "100%" }}
+//           >
+//             <TileLayer
+//               attribution="&copy; OpenStreetMap"
+//               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+//             />
+//             {userLocation && (
+//               <Marker position={[userLocation.lat, userLocation.lng]} icon={userIcon}>
+//                 <Popup>
+//                   <b>Your Location</b>
+//                   <br />
+//                   {userAddress}
+//                 </Popup>
+//               </Marker>
+//             )}
+//             {selectedBus && busData[selectedBus] && (
+//               <Marker
+//                 position={[
+//                   busData[selectedBus].latitude,
+//                   busData[selectedBus].longitude,
+//                 ]}
+//                 icon={busIcon}
+//               >
+//                 <Popup>{selectedBus}</Popup>
+//               </Marker>
+//             )}
+//             {showPath && userLocation && selectedBus && busData[selectedBus] && (
+//               <Polyline
+//                 positions={[
+//                   [userLocation.lat, userLocation.lng],
+//                   [busData[selectedBus].latitude, busData[selectedBus].longitude],
+//                 ]}
+//                 color="blue"
+//               />
+//             )}
+//             <RecenterMap center={userLocation && [userLocation.lat, userLocation.lng]} />
+//           </MapContainer>
+
+//           <button
+//             className="mt-4 w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg font-semibold"
+//             onClick={() => setShowPath(!showPath)}
+//           >
+//             {showPath ? "Hide Path" : "Show Distance and Path"}
+//           </button>
+//         </div>
+
+//         {/* Info Panel */}
+//         <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg">
+//           <h2 className="text-2xl font-bold mb-4 text-gray-800 dark:text-white">
+//             Information
+//           </h2>
+//           {selectedBus && busData[selectedBus] ? (
+//             <div>
+//               <p className="mb-2"><strong>Bus Number:</strong> {selectedBus}</p>
+//               <p className="mb-2"><strong>Latitude:</strong> {busData[selectedBus].latitude.toFixed(6)}</p>
+//               <p className="mb-2"><strong>Longitude:</strong> {busData[selectedBus].longitude.toFixed(6)}</p>
+//               <p className="mb-2"><strong>Seat Status:</strong> {JSON.stringify(busData[selectedBus].seatStatus)}</p>
+//               {distance && (
+//                 <p className="text-lg font-semibold text-green-600">
+//                   Distance: {distance} km
+//                 </p>
+//               )}
+//             </div>
+//           ) : (
+//             <p className="text-gray-500">Please select a bus to view details.</p>
+//           )}
+//         </div>
+//       </div>
+//     </section>
+//   );
+// }
+
+
+// import React, { useState, useEffect } from "react";
+// import { MapContainer, TileLayer, Marker, Popup, Polyline, useMap } from "react-leaflet";
+// import "leaflet/dist/leaflet.css";
+// import L from "leaflet";
+// import { getDistance } from "geolib";
+
+// // User Icon
+// const userIcon = new L.Icon({
+//   iconUrl: "https://cdn-icons-png.flaticon.com/512/64/64113.png",
+//   iconSize: [30, 30],
+//   iconAnchor: [15, 30],
+//   popupAnchor: [0, -30],
+// });
+
+// // Bus Icon
+// const busIcon = new L.Icon({
+//   iconUrl: "https://cdn-icons-png.flaticon.com/512/61/61205.png",
+//   iconSize: [30, 30],
+//   iconAnchor: [15, 30],
+//   popupAnchor: [0, -30],
+// });
+
+// // Helper component to update map center dynamically
+// function RecenterMap({ center }) {
+//   const map = useMap();
+//   useEffect(() => {
+//     if (center) {
+//       map.setView(center, 15);
+//     }
+//   }, [center, map]);
+//   return null;
+// }
+
+// export default function TrackBus() {
+//   const [userLocation, setUserLocation] = useState(null);
+//   const [userAddress, setUserAddress] = useState("");
+//   const [locationEnabled, setLocationEnabled] = useState(false);
+
+//   const [buses, setBuses] = useState([]);
+//   const [busData, setBusData] = useState({});
+//   const [selectedBus, setSelectedBus] = useState("");
+//   const [distance, setDistance] = useState(null);
+//   const [showPath, setShowPath] = useState(false);
+
+//   const API_URL = process.env.REACT_APP_API_URL;
+//   const WS_URL = process.env.REACT_APP_WS_URL;
+
+//   // Function to request user location manually
+//   const getUserLocation = () => {
+//     if (!navigator.geolocation) {
+//       alert("Geolocation is not supported by your browser.");
+//       return;
+//     }
+
+//     navigator.geolocation.getCurrentPosition(
+//       (pos) => {
+//         const loc = { lat: pos.coords.latitude, lng: pos.coords.longitude };
+//         setUserLocation(loc);
+//         setLocationEnabled(true);
+
+//         // Reverse Geocoding for place name
+//         fetch(
+//           `https://nominatim.openstreetmap.org/reverse?format=json&lat=${loc.lat}&lon=${loc.lng}`
+//         )
+//           .then((res) => res.json())
+//           .then((data) => setUserAddress(data.display_name || "Unknown Place"))
+//           .catch(() => setUserAddress("Unknown Place"));
+//       },
+//       (err) => {
+//         alert("Location access denied or unavailable!");
+//         console.error(err);
+//       }
+//     );
+//   };
+
+//   // Fetch initial bus data
+//   useEffect(() => {
+//     fetch(`${API_URL}/api/busdata`)
+//       .then((res) => res.json())
+//       .then((data) => {
+//         const latest = {};
+//         const uniqueBuses = [...new Set(data.map((d) => d.busNumber))];
+//         data.forEach((d) => {
+//           if (!latest[d.busNumber] || d.timestamp > latest[d.busNumber].timestamp) {
+//             latest[d.busNumber] = d;
+//           }
+//         });
+//         setBuses(uniqueBuses);
+//         setBusData(latest);
+//       })
+//       .catch((err) => console.error(err));
+//   }, [API_URL]);
+
+//   // WebSocket live updates
+//   useEffect(() => {
+//     const ws = new WebSocket(WS_URL);
+//     ws.onmessage = (event) => {
+//       const newData = JSON.parse(event.data);
+//       setBusData((prev) => ({
+//         ...prev,
+//         [newData.busNumber]: newData,
+//       }));
+//     };
+//     return () => ws.close();
+//   }, [WS_URL]);
+
+//   // Distance calculation
+//   useEffect(() => {
+//     if (userLocation && selectedBus && busData[selectedBus]) {
+//       const busLoc = busData[selectedBus];
+//       const dist =
+//         getDistance(
+//           { latitude: userLocation.lat, longitude: userLocation.lng },
+//           { latitude: busLoc.latitude, longitude: busLoc.longitude }
+//         ) / 1000;
+//       setDistance(dist.toFixed(2));
+//     }
+//   }, [selectedBus, busData, userLocation]);
+
+//   return (
+//     <section
+//       id="track"
+//       className="min-h-screen bg-gray-100 dark:bg-gray-900 py-16 px-6"
+//     >
+//       <h2 className="text-4xl font-bold text-center mb-12">Track Bus</h2>
+
+//       {/* Enable Location Button */}
+//       {!locationEnabled && (
+//         <div className="flex justify-center mb-6">
+//           <button
+//             onClick={getUserLocation}
+//             className="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-lg font-semibold"
+//           >
+//             Enable Location
+//           </button>
+//         </div>
+//       )}
+
+//       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto">
+//         <div>
+//           <label className="block text-gray-700 dark:text-gray-200 mb-2">
+//             Select Bus
+//           </label>
+//           <select
+//             value={selectedBus}
+//             onChange={(e) => setSelectedBus(e.target.value)}
+//             className="w-full p-3 border rounded-lg dark:bg-gray-700 dark:text-white"
+//           >
+//             <option value="">-- Choose Bus --</option>
+//             {buses.map((bus) => (
+//               <option key={bus} value={bus}>
+//                 {bus}
+//               </option>
+//             ))}
+//           </select>
+
+//           {/* Map */}
+//           <MapContainer
+//             center={userLocation || [20.5937, 78.9629]} // fallback: India
+//             zoom={13}
+//             style={{ height: "400px", width: "100%" }}
+//           >
+//             <TileLayer
+//               attribution="&copy; OpenStreetMap"
+//               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+//             />
+//             {userLocation && (
+//               <Marker position={[userLocation.lat, userLocation.lng]} icon={userIcon}>
+//                 <Popup>
+//                   <b>Your Location</b>
+//                   <br />
+//                   {userAddress}
+//                 </Popup>
+//               </Marker>
+//             )}
+//             {selectedBus && busData[selectedBus] && (
+//               <Marker
+//                 position={[
+//                   busData[selectedBus].latitude,
+//                   busData[selectedBus].longitude,
+//                 ]}
+//                 icon={busIcon}
+//               >
+//                 <Popup>{selectedBus}</Popup>
+//               </Marker>
+//             )}
+//             {showPath && userLocation && selectedBus && busData[selectedBus] && (
+//               <Polyline
+//                 positions={[
+//                   [userLocation.lat, userLocation.lng],
+//                   [busData[selectedBus].latitude, busData[selectedBus].longitude],
+//                 ]}
+//                 color="blue"
+//               />
+//             )}
+//             <RecenterMap center={userLocation && [userLocation.lat, userLocation.lng]} />
+//           </MapContainer>
+
+//           <button
+//             className="mt-4 w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg font-semibold"
+//             onClick={() => setShowPath(!showPath)}
+//           >
+//             {showPath ? "Hide Path" : "Show Distance and Path"}
+//           </button>
+//         </div>
+
+//         {/* Info Panel */}
+//         <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg">
+//           <h2 className="text-2xl font-bold mb-4 text-gray-800 dark:text-white">
+//             Information
+//           </h2>
+//           {selectedBus && busData[selectedBus] ? (
+//             <div>
+//               <p className="mb-2"><strong>Bus Number:</strong> {selectedBus}</p>
+//               <p className="mb-2"><strong>Latitude:</strong> {busData[selectedBus].latitude.toFixed(6)}</p>
+//               <p className="mb-2"><strong>Longitude:</strong> {busData[selectedBus].longitude.toFixed(6)}</p>
+//               <p className="mb-2"><strong>Seat Status:</strong> {JSON.stringify(busData[selectedBus].seatStatus)}</p>
+//               {distance && (
+//                 <p className="text-lg font-semibold text-green-600">
+//                   Distance: {distance} km
+//                 </p>
+//               )}
+//             </div>
+//           ) : (
+//             <p className="text-gray-500">Please select a bus to view details.</p>
+//           )}
+//         </div>
+//       </div>
+//     </section>
+//   );
+// }
+
+
+
+
+
 import React, { useState, useEffect } from "react";
 import { MapContainer, TileLayer, Marker, Popup, Polyline, useMap } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
 import { getDistance } from "geolib";
+import { BASE_URL } from "../config"; // ✅ import backend URL
 
 const userIcon = new L.Icon({
   iconUrl: "https://cdn-icons-png.flaticon.com/512/64/64113.png",
@@ -3685,13 +4150,11 @@ const busIcon = new L.Icon({
   popupAnchor: [0, -30],
 });
 
-// Helper component to update map center dynamically
+// Helper to update map center
 function RecenterMap({ center }) {
   const map = useMap();
   useEffect(() => {
-    if (center) {
-      map.setView(center, 15);
-    }
+    if (center) map.setView(center, 15);
   }, [center, map]);
   return null;
 }
@@ -3707,20 +4170,19 @@ export default function TrackBus() {
   const [distance, setDistance] = useState(null);
   const [showPath, setShowPath] = useState(false);
 
-  // Function to request user location manually
+  // User location
   const getUserLocation = () => {
     if (!navigator.geolocation) {
-      alert("Geolocation is not supported by your browser.");
+      alert("Geolocation not supported.");
       return;
     }
-
     navigator.geolocation.getCurrentPosition(
       (pos) => {
         const loc = { lat: pos.coords.latitude, lng: pos.coords.longitude };
         setUserLocation(loc);
         setLocationEnabled(true);
 
-        // Reverse Geocoding for place name
+        // Reverse geocoding
         fetch(
           `https://nominatim.openstreetmap.org/reverse?format=json&lat=${loc.lat}&lon=${loc.lng}`
         )
@@ -3729,15 +4191,15 @@ export default function TrackBus() {
           .catch(() => setUserAddress("Unknown Place"));
       },
       (err) => {
-        alert("Location access denied or unavailable!");
+        alert("Location access denied!");
         console.error(err);
       }
     );
   };
 
-  // Fetch initial bus data
+  // Fetch buses from backend
   useEffect(() => {
-    fetch("http://localhost:5000/api/busdata")
+    fetch(`${BASE_URL}/api/busdata`)
       .then((res) => res.json())
       .then((data) => {
         const latest = {};
@@ -3750,12 +4212,12 @@ export default function TrackBus() {
         setBuses(uniqueBuses);
         setBusData(latest);
       })
-      .catch((err) => console.error(err));
+      .catch((err) => console.error("❌ Fetch error:", err));
   }, []);
 
   // WebSocket live updates
   useEffect(() => {
-    const ws = new WebSocket("ws://localhost:5000");
+    const ws = new WebSocket("wss://backend-production-f5c8.up.railway.app"); // ✅ Railway WS
     ws.onmessage = (event) => {
       const newData = JSON.parse(event.data);
       setBusData((prev) => ({
@@ -3766,7 +4228,7 @@ export default function TrackBus() {
     return () => ws.close();
   }, []);
 
-  // Distance calculation
+  // Distance calc
   useEffect(() => {
     if (userLocation && selectedBus && busData[selectedBus]) {
       const busLoc = busData[selectedBus];
@@ -3780,13 +4242,9 @@ export default function TrackBus() {
   }, [selectedBus, busData, userLocation]);
 
   return (
-    <section
-      id="track"
-      className="min-h-screen bg-gray-100 dark:bg-gray-900 py-16 px-6"
-    >
+    <section id="track" className="min-h-screen bg-gray-100 dark:bg-gray-900 py-16 px-6">
       <h2 className="text-4xl font-bold text-center mb-12">Track Bus</h2>
 
-      {/* Enable Location Button */}
       {!locationEnabled && (
         <div className="flex justify-center mb-6">
           <button
@@ -3800,9 +4258,7 @@ export default function TrackBus() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto">
         <div>
-          <label className="block text-gray-700 dark:text-gray-200 mb-2">
-            Select Bus
-          </label>
+          <label className="block text-gray-700 dark:text-gray-200 mb-2">Select Bus</label>
           <select
             value={selectedBus}
             onChange={(e) => setSelectedBus(e.target.value)}
@@ -3818,7 +4274,7 @@ export default function TrackBus() {
 
           {/* Map */}
           <MapContainer
-            center={userLocation || [20.5937, 78.9629]} // fallback: India
+            center={userLocation || [20.5937, 78.9629]}
             zoom={13}
             style={{ height: "400px", width: "100%" }}
           >
@@ -3837,10 +4293,7 @@ export default function TrackBus() {
             )}
             {selectedBus && busData[selectedBus] && (
               <Marker
-                position={[
-                  busData[selectedBus].latitude,
-                  busData[selectedBus].longitude,
-                ]}
+                position={[busData[selectedBus].latitude, busData[selectedBus].longitude]}
                 icon={busIcon}
               >
                 <Popup>{selectedBus}</Popup>
@@ -3868,9 +4321,7 @@ export default function TrackBus() {
 
         {/* Info Panel */}
         <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg">
-          <h2 className="text-2xl font-bold mb-4 text-gray-800 dark:text-white">
-            Information
-          </h2>
+          <h2 className="text-2xl font-bold mb-4 text-gray-800 dark:text-white">Information</h2>
           {selectedBus && busData[selectedBus] ? (
             <div>
               <p className="mb-2"><strong>Bus Number:</strong> {selectedBus}</p>
@@ -3878,9 +4329,7 @@ export default function TrackBus() {
               <p className="mb-2"><strong>Longitude:</strong> {busData[selectedBus].longitude.toFixed(6)}</p>
               <p className="mb-2"><strong>Seat Status:</strong> {JSON.stringify(busData[selectedBus].seatStatus)}</p>
               {distance && (
-                <p className="text-lg font-semibold text-green-600">
-                  Distance: {distance} km
-                </p>
+                <p className="text-lg font-semibold text-green-600">Distance: {distance} km</p>
               )}
             </div>
           ) : (

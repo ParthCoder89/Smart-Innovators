@@ -69,19 +69,33 @@
 
 
 
-import React, { useState, useCallback } from "react";
-import BlackRed from "./assets/blackred.jpg"; // Background image
-import { FaUserCircle } from "react-icons/fa";
+// import React, { useState, useCallback } from "react";
+// import BlackRed from "./assets/blackred.jpg"; // Background image
+// import { FaUserCircle } from "react-icons/fa";
 
-const SignIn = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+// const SignIn = () => {
+//   const [email, setEmail] = useState("");
+//   const [password, setPassword] = useState("");
 
-  // memoized function to avoid re-creation
-  const handleSignIn = useCallback((e) => {
-    e.preventDefault();
-    alert(`Email: ${email}\nPassword: ${password}`);
-  }, [email, password]);
+//   // memoized function to avoid re-creation
+//   const handleSignIn = useCallback((e) => {
+//     e.preventDefault();
+//     alert(`Email: ${email}\nPassword: ${password}`);
+//   }, [email, password]);
+
+
+import React from "react";
+import Authform from "./Authform";
+
+export default function Signin({ onClose, onAuthSuccess }) {
+  return (
+    <Authform
+      type="login"
+      onClose={onClose}
+      onAuthSuccess={onAuthSuccess}
+    />
+  );
+}
 
   return (
     <section id="signin" className="relative w-screen min-h-screen">
@@ -164,6 +178,4 @@ const SignIn = () => {
       </div>
     </section>
   );
-};
 
-export default SignIn;
