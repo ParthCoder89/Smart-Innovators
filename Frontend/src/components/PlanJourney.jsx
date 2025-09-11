@@ -90,7 +90,7 @@ export default function PlanJourney({ onRouteSelect }) {
       </div>
 
       {/* Passenger + Calculate */}
-      <div className="flex items-end justify-between gap-6 mb-6">
+      <div className="flex items-end justify-between gap-6 mb-16">
         <div className="flex-1 text-left">
           <label
             htmlFor="passengers"
