@@ -99,7 +99,7 @@ export default function AboutUs() {
           {
             img: Member5,
             name: "Alok Verma",
-            role: "Backed Developer",
+            role: "Backed and Database Developer",
             github: "https://github.com/Alokzhan",
             linkedin:
               "https://www.linkedin.com/in/alok-verma-539833350",
