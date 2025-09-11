@@ -163,7 +163,7 @@ export default function TrackBus() {
   }, [selectedBus, busData, userLocation]);
 
   return (
-    <section id="track" className="min-h-screen bg-gray-100 dark:bg-gray-900 py-16 px-6">
+    <section id="track" className="min-h-screen bg-gray-100 dark:bg-gray-900 py-16 px-6 mt-6">
       <h2 className="text-4xl font-bold text-center mt-12 mb-2">Track Bus</h2>
       <p className="text-center my-6">You can Track your bus and can find the distance from you and you can find the fair of your journey</p>
       <PlanJourney />
