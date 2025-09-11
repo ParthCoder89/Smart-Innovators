@@ -14,7 +14,7 @@ import { BASE_URL } from "../config";
 // ✅ Import routing
 import "leaflet-routing-machine";
 import "leaflet-routing-machine/dist/leaflet-routing-machine.css";
-import PlanJourney from "./Planjourney";
+import PlanJourney from "./PlanJourney";
 
 const userIcon = new L.Icon({
   iconUrl: "https://cdn-icons-png.flaticon.com/512/64/64113.png",
