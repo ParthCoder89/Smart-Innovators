@@ -163,7 +163,7 @@ export default function TrackBus() {
   }, [selectedBus, busData, userLocation]);
 
   return (
-    <section id="track" className="min-h-screen bg-gray-100 dark:bg-gray-900 py-16 px-6 mt-6">
+    <section id="track" className="min-h-screen bg-gray-100 dark:bg-gray-900 py-16 px-6">
       <h2 className="text-4xl font-bold text-center mt-12 mb-2">Track Bus</h2>
       <p className="text-center my-6">You can Track your bus and can find the distance from you and you can find the fair of your journey</p>
       <PlanJourney />
@@ -179,7 +179,7 @@ export default function TrackBus() {
         </div>
       )}
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto mt-6">
         <div style={{ border: "3px solid grey" }} className="rounded-xl">
           <label className="block text-gray-700 dark:text-gray-300 mb-1 pt-4 pl-[5%]">
             Select Bus
