@@ -1,311 +1,92 @@
-// import React, { useEffect, useState } from "react";
-// import AOS from "aos";
-// import "aos/dist/aos.css";
-
-// export default function Authform({ type, onClose, onAuthSuccess }) {
-//     const [email, setEmail] = useState("");
-//     const [mobile, setMobile] = useState("");
-//     const [password, setPassword] = useState("");
-
-//     const handleSubmit = (e) => {
-//         e.preventDefault();
-//         // Normally you would call backend API here
-//         const userData = { email, mobile };
-//         onAuthSuccess(userData);
-//     };
-
-//     useEffect(() => {
-//         AOS.init({ duration: 1000, once: false });
-//     }, []);
-
-
-//     return (
-//         <div className="fixed inset-0 flex justify-end z-50" data-aos="fade-left">
-//             {/* Overlay */}
-//             <div
-//                 className="absolute inset-0 bg-black opacity-50"
-//                 onClick={onClose}
-//             ></div>
-
-//             {/* Sliding Panel */}
-//             <div className="relative w-full max-w-md bg-white dark:bg-gray-900 shadow-lg p-8 transform translate-x-0 transition-transform duration-300">
-
-//                 <button
-//                     className="absolute top-4 right-4 text-4xl font-bold text-gray-600 hover:text-red-600"
-//                     onClick={onClose}
-//                 >
-//                     ×
-//                 </button>
-
-//                 <h2 className="text-2xl font-bold mt-10 mb-6 text-center">
-//                     {type === "signin" ? "Sign In" : "Sign Up"}
-//                 </h2>
-//                 <form onSubmit={handleSubmit} className="space-y-4">
-//                     <div>
-//                         <label className="block text-gray-700 dark:text-gray-300">Email</label>
-//                         <input
-//                             type="email"
-//                             className="w-full p-2 border rounded mt-1 text-black"
-//                             value={email}
-//                             onChange={(e) => setEmail(e.target.value)}
-//                             required
-//                         />
-//                     </div>
-
-//                     {type === "signup" && (
-//                         <div>
-//                             <label className="block text-gray-700 dark:text-gray-300">Mobile Number</label>
-//                             <input
-//                                 type="text"
-//                                 className="w-full p-2 border rounded mt-1 text-black"
-//                                 value={mobile}
-//                                 onChange={(e) => setMobile(e.target.value)}
-//                                 required
-//                             />
-//                         </div>
-//                     )}
-
-//                     <div>
-//                         <label className="block text-gray-700 dark:text-gray-300">Password</label>
-//                         <input
-//                             type="password"
-//                             className="w-full p-2 border rounded mt-1 text-black"
-//                             value={password}
-//                             onChange={(e) => setPassword(e.target.value)}
-//                             required
-//                         />
-//                     </div>
-
-//                     <button
-//                         type="submit"
-//                         className="w-full bg-orange-600 text-white py-2 rounded hover:bg-orange-500"
-//                     >
-//                         {type === "signin" ? "Sign In" : "Sign Up"}
-//                     </button>
-//                     {/* <button className="fixed top-5 right-5">
-//                         *
-//                     </button> */}
-//                 </form>
-//             </div>
-//         </div>
-//     );
-// }
-
-
-
-// import React, { useEffect, useState } from "react";
-// import AOS from "aos";
-// import "aos/dist/aos.css";
-// import { auth } from "../firebase"; // firebase.js import
-// import { 
-//   createUserWithEmailAndPassword, 
-//   signInWithEmailAndPassword, 
-//   sendEmailVerification 
-// } from "firebase/auth";
-
-// export default function Authform({ type, onClose, onAuthSuccess }) {
-//     const [email, setEmail] = useState("");
-//     const [mobile, setMobile] = useState("");
-//     const [password, setPassword] = useState("");
-//     const [error, setError] = useState("");
-
-//     const handleSubmit = async (e) => {
-//         e.preventDefault();
-//         try {
-//             if (type === "signup") {
-//                 const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-//                 await sendEmailVerification(userCredential.user);
-                
-//                 // Mobile backend me save karne ke liye Spring Boot API call
-//                 await fetch("http://localhost:8080/api/users", {
-//                     method: "POST",
-//                     headers: { "Content-Type": "application/json" },
-//                     body: JSON.stringify({ email, mobile }),
-//                 });
-
-//                 onAuthSuccess(userCredential.user);
-//                 alert("Signup successful! Verification email sent.");
-//             } else {
-//                 const userCredential = await signInWithEmailAndPassword(auth, email, password);
-//                 onAuthSuccess(userCredential.user);
-//                 alert("Login successful!");
-//             }
-//         } catch (err) {
-//             console.error(err.message);
-//             setError(err.message);
-//         }
-//     };
-
-//     useEffect(() => {
-//         AOS.init({ duration: 1000, once: false });
-//     }, []);
-
-//     return (
-//         <div className="fixed inset-0 flex justify-end z-50" data-aos="fade-left">
-//             {/* Overlay */}
-//             <div
-//                 className="absolute inset-0 bg-black opacity-50"
-//                 onClick={onClose}
-//             ></div>
-
-//             {/* Sliding Panel */}
-//             <div className="relative w-full max-w-md bg-white dark:bg-gray-900 shadow-lg p-8 transform translate-x-0 transition-transform duration-300">
-//                 <button
-//                     className="absolute top-4 right-4 text-4xl font-bold text-gray-600 hover:text-red-600"
-//                     onClick={onClose}
-//                 >
-//                     ×
-//                 </button>
-
-//                 <h2 className="text-2xl font-bold mt-10 mb-6 text-center">
-//                     {type === "signin" ? "Sign In" : "Sign Up"}
-//                 </h2>
-
-//                 {error && <p className="text-red-600 mb-2">{error}</p>}
-
-//                 <form onSubmit={handleSubmit} className="space-y-4">
-//                     <div>
-//                         <label className="block text-gray-700 dark:text-gray-300">Email</label>
-//                         <input
-//                             type="email"
-//                             className="w-full p-2 border rounded mt-1 text-black"
-//                             value={email}
-//                             onChange={(e) => setEmail(e.target.value)}
-//                             required
-//                         />
-//                     </div>
-
-//                     {type === "signup" && (
-//                         <div>
-//                             <label className="block text-gray-700 dark:text-gray-300">Mobile Number</label>
-//                             <input
-//                                 type="text"
-//                                 className="w-full p-2 border rounded mt-1 text-black"
-//                                 value={mobile}
-//                                 onChange={(e) => setMobile(e.target.value)}
-//                                 required
-//                             />
-//                         </div>
-//                     )}
-
-//                     <div>
-//                         <label className="block text-gray-700 dark:text-gray-300">Password</label>
-//                         <input
-//                             type="password"
-//                             className="w-full p-2 border rounded mt-1 text-black"
-//                             value={password}
-//                             onChange={(e) => setPassword(e.target.value)}
-//                             required
-//                         />
-//                     </div>
-
-//                     <button
-//                         type="submit"
-//                         className="w-full bg-orange-600 text-white py-2 rounded hover:bg-orange-500"
-//                     >
-//                         {type === "signin" ? "Sign In" : "Sign Up"}
-//                     </button>
-//                 </form>
-//             </div>
-//         </div>
-//     );
-// }
-
-
-
-import React, { useState } from "react";
-import { BASE_URL } from "../config";
+import React, { useEffect, useState } from "react";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 export default function Authform({ type, onClose, onAuthSuccess }) {
-  const [email, setEmail] = useState("");
-  const [mobile, setMobile] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
+    const [email, setEmail] = useState("");
+    const [mobile, setMobile] = useState("");
+    const [password, setPassword] = useState("");
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setError("");
-    setLoading(true);
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        // Normally you would call backend API here
+        const userData = { email, mobile };
+        onAuthSuccess(userData);
+    };
 
-    try {
-      const endpoint =
-        type === "signup" ? `${BASE_URL}/api/auth/signup` : `${BASE_URL}/api/auth/login`;
+    useEffect(() => {
+        AOS.init({ duration: 1000, once: false });
+    }, []);
 
-      const body =
-        type === "signup"
-          ? { email, mobile, password }
-          : { email, password };
 
-      const res = await fetch(endpoint, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(body),
-      });
+    return (
+        <div className="fixed inset-0 flex justify-end z-50" data-aos="fade-left">
+            {/* Overlay */}
+            <div
+                className="absolute inset-0 bg-black opacity-50"
+                onClick={onClose}
+            ></div>
 
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.error || "Something went wrong");
+            {/* Sliding Panel */}
+            <div className="relative w-full max-w-md bg-white dark:bg-gray-900 shadow-lg p-8 transform translate-x-0 transition-transform duration-300">
 
-      if (data.token) {
-        localStorage.setItem("token", data.token);
-        localStorage.setItem("user", JSON.stringify(data.user));
-        if (onAuthSuccess) onAuthSuccess(data.user);
-      } else {
-        alert(data.message || "Signup successful");
-      }
+                <button
+                    className="absolute top-4 right-4 text-4xl font-bold text-gray-600 hover:text-red-600"
+                    onClick={onClose}
+                >
+                    ×
+                </button>
 
-      onClose();
-    } catch (err) {
-      setError(err.message);
-    } finally {
-      setLoading(false);
-    }
-  };
+                <h2 className="text-2xl font-bold mt-10 mb-6 text-center">
+                    {type === "signin" ? "Sign In" : "Sign Up"}
+                </h2>
+                <form onSubmit={handleSubmit} className="space-y-4">
+                    <div>
+                        <label className="block text-gray-700 dark:text-gray-300">Email</label>
+                        <input
+                            type="email"
+                            className="w-full p-2 border rounded mt-1 text-black"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            required
+                        />
+                    </div>
 
-  return (
-    <div className="p-6 bg-white shadow-lg rounded-xl w-96">
-      <h2 className="text-xl font-bold mb-4">
-        {type === "signup" ? "Sign Up" : "Login"}
-      </h2>
-      {error && <p className="text-red-500">{error}</p>}
-      <form onSubmit={handleSubmit} className="flex flex-col gap-3">
-        <input
-          type="email"
-          placeholder="Email"
-          className="border p-2 rounded"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
-        {type === "signup" && (
-          <input
-            type="text"
-            placeholder="Mobile"
-            className="border p-2 rounded"
-            value={mobile}
-            onChange={(e) => setMobile(e.target.value)}
-          />
-        )}
-        <input
-          type="password"
-          placeholder="Password"
-          className="border p-2 rounded"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
-        <button
-          type="submit"
-          disabled={loading}
-          className="bg-blue-500 text-white py-2 rounded hover:bg-blue-600"
-        >
-          {loading
-            ? "Processing..."
-            : type === "signup"
-            ? "Sign Up"
-            : "Login"}
-        </button>
-      </form>
-    </div>
-  );
+                    {type === "signup" && (
+                        <div>
+                            <label className="block text-gray-700 dark:text-gray-300">Mobile Number</label>
+                            <input
+                                type="text"
+                                className="w-full p-2 border rounded mt-1 text-black"
+                                value={mobile}
+                                onChange={(e) => setMobile(e.target.value)}
+                                required
+                            />
+                        </div>
+                    )}
+
+                    <div>
+                        <label className="block text-gray-700 dark:text-gray-300">Password</label>
+                        <input
+                            type="password"
+                            className="w-full p-2 border rounded mt-1 text-black"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            required
+                        />
+                    </div>
+
+                    <button
+                        type="submit"
+                        className="w-full bg-orange-600 text-white py-2 rounded hover:bg-orange-500"
+                    >
+                        {type === "signin" ? "Sign In" : "Sign Up"}
+                    </button>
+                    {/* <button className="fixed top-5 right-5">
+                        *
+                    </button> */}
+                </form>
+            </div>
+        </div>
+    );
 }
