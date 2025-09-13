@@ -12,6 +12,7 @@ import { getDistance } from "geolib";
 import { BASE_URL } from "../config";
 import "leaflet-routing-machine";
 import "leaflet-routing-machine/dist/leaflet-routing-machine.css";
+import PlanJourney from "./Planjourney";
 
 // ------------------ Stops & Paths ------------------
 const stopsData = [
@@ -108,6 +109,42 @@ export default function TrackBus() {
     const firstStopData = stopsData.find((s) => s.bus_stop === stopName);
     setSelectedStop(firstStopData);
   };
+
+
+  useEffect(() => {
+    if ("Notification" in window) {
+      Notification.requestPermission().then((permission) => {
+        if (permission === "granted") {
+          console.log("✅ Notifications allowed");
+        }
+      });
+    }
+  }, []);
+
+  useEffect(() => {
+    if (selectedStop && universityStop) {
+      const dist =
+        getDistance(
+          { latitude: selectedStop.latitude, longitude: selectedStop.longitude },
+          { latitude: universityStop.latitude, longitude: universityStop.longitude }
+        ) / 1000; // km me convert
+
+      console.log("Stop → University:", dist, "km");
+
+      if (
+        dist <= 10 &&
+        "Notification" in window &&
+        Notification.permission === "granted"
+      ) {
+        new Notification("🚌 Bus Alert", {
+          body: `Your stop (${selectedStop.bus_stop}) is only ${dist.toFixed(
+            2
+          )} km away from Invertis University.`,
+          icon: "https://cdn-icons-png.flaticon.com/512/61/61205.png",
+        });
+      }
+    }
+  }, [selectedStop, universityStop]);
 
   // ✅ User location
   const getUserLocation = () => {
@@ -214,7 +251,7 @@ export default function TrackBus() {
         newData.latitude !== 0 &&
         newData.longitude !== 0 &&
         !isNaN(dataTime) &&
-        now - dataTime < 10000 
+        now - dataTime < 10000
       ) {
         setBusData((prev) => ({
           ...prev,
@@ -248,6 +285,7 @@ export default function TrackBus() {
   return (
     <section id="track" className="min-h-screen bg-gray-100 dark:bg-gray-900 py-16 px-6">
       <h2 className="text-5xl font-bold text-center mt-12 mb-2">🚌 Track Bus</h2>
+      <PlanJourney />
 
       {/* Enable Location + Refresh Button */}
       {!locationEnabled && (
