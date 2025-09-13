@@ -18,7 +18,7 @@ export default function Header({ darkMode, setDarkMode }) {
     <>
       {/* Navbar */}
       <nav
-        className="flex items-center justify-between px-6 py-4 bg-blue-500 dark:bg-gray-800 fixed top-0 left-0 w-full z-50"
+        className="flex items-center justify-between px-6 py-4 bg-blue-400 dark:bg-gray-800 fixed top-0 left-0 w-full z-50"
         role="navigation"
         aria-label="Main Navigation"
         data-aos="zoom-out"
@@ -28,7 +28,7 @@ export default function Header({ darkMode, setDarkMode }) {
           <img
             src={Logo}
             alt="Smart Innovators Team Logo"
-            className="w-20 md:w-24 -ml-5 drop-shadow-[1px_1px_1px_white]"
+            className="w-20 md:w-32 -ml-5 drop-shadow-[1px_1px_1px_white]"
             loading="lazy"
           />
         </a>

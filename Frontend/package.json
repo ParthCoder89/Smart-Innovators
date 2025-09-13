@@ -10,15 +10,19 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@emailjs/browser": "^4.4.1",
     "@gegeweb/leaflet-routing-machine-openroute": "^0.1.10",
     "aos": "^2.3.4",
     "autoprefixer": "^10.4.21",
     "axios": "^1.11.0",
+    "emailjs-com": "^3.2.0",
     "firebase": "^12.2.1",
     "framer-motion": "^12.23.12",
     "geolib": "^3.3.4",
     "leaflet": "^1.9.4",
     "leaflet-routing-machine": "^3.2.12",
+    "lucide-react": "^0.544.0",
+    "motion": "^12.23.12",
     "postcss": "^8.5.6",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
@@ -38,3 +42,4 @@
     "vite": "^7.1.2"
   }
 }
+
